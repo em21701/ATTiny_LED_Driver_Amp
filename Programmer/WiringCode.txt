@@ -1,0 +1,6 @@
+PIN	Wire
+G	Black
+V	White
+C	Gray
+D	Purple
+R	Blue
