@@ -4379,7 +4379,7 @@ type 0309, grid 2.5 mm</description>
 </package>
 </packages>
 <symbols>
-<symbol name="C-US">
+<symbol name="C-US@1">
 <wire x1="-2.54" y1="0" x2="2.54" y2="0" width="0.254" layer="94"/>
 <wire x1="0" y1="-1.016" x2="0" y2="-2.54" width="0.1524" layer="94"/>
 <wire x1="0" y1="-1" x2="2.4892" y2="-1.8542" width="0.254" layer="94" curve="-37.878202" cap="flat"/>
@@ -4409,7 +4409,7 @@ type 0309, grid 2.5 mm</description>
 <deviceset name="C-US" prefix="C" uservalue="yes">
 <description>&lt;B&gt;CAPACITOR&lt;/B&gt;, American symbol</description>
 <gates>
-<gate name="G$1" symbol="C-US" x="0" y="0"/>
+<gate name="G$1" symbol="C-US@1" x="0" y="0"/>
 </gates>
 <devices>
 <device name="C0402" package="C0402">
@@ -6497,14 +6497,14 @@ the programming of the micro.</text>
 </sheet>
 </sheets>
 <errors>
-<approved hash="104,1,71.12,182.88,U1,VIN,+14V,,,"/>
-<approved hash="104,1,180.34,73.66,U3,V+,VCC,,,"/>
-<approved hash="104,1,180.34,58.42,U3,V-,GND,,,"/>
-<approved hash="208,1,106.68,182.88,VCC,out,,,,"/>
-<approved hash="208,1,119.38,193.04,VCC,sup,,,,"/>
-<approved hash="208,1,157.48,185.42,VCC,sup,,,,"/>
-<approved hash="208,1,93.98,132.08,VCC,sup,,,,"/>
-<approved hash="208,1,180.34,76.2,VCC,sup,,,,"/>
+<approved hash="104,1,53.34,160.02,U1,VIN,+14V,,,"/>
+<approved hash="104,1,160.02,53.34,U3,V+,VCC,,,"/>
+<approved hash="104,1,160.02,38.1,U3,V-,GND,,,"/>
+<approved hash="208,1,88.9,160.02,VCC,out,,,,"/>
+<approved hash="208,1,101.6,170.18,VCC,sup,,,,"/>
+<approved hash="208,1,139.7,162.56,VCC,sup,,,,"/>
+<approved hash="208,1,119.38,106.68,VCC,sup,,,,"/>
+<approved hash="208,1,160.02,55.88,VCC,sup,,,,"/>
 </errors>
 </schematic>
 </drawing>

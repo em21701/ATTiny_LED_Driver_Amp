@@ -6496,16 +6496,6 @@ the programming of the micro.</text>
 </nets>
 </sheet>
 </sheets>
-<errors>
-<approved hash="104,1,71.12,182.88,U1,VIN,+14V,,,"/>
-<approved hash="104,1,180.34,73.66,U3,V+,VCC,,,"/>
-<approved hash="104,1,180.34,58.42,U3,V-,GND,,,"/>
-<approved hash="208,1,106.68,182.88,VCC,out,,,,"/>
-<approved hash="208,1,119.38,193.04,VCC,sup,,,,"/>
-<approved hash="208,1,157.48,185.42,VCC,sup,,,,"/>
-<approved hash="208,1,93.98,132.08,VCC,sup,,,,"/>
-<approved hash="208,1,180.34,76.2,VCC,sup,,,,"/>
-</errors>
 </schematic>
 </drawing>
 <compatibility>
