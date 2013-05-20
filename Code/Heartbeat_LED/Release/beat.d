@@ -1,0 +1,1 @@
+beat.d: ../beat.c
