@@ -5962,11 +5962,11 @@ Source: http://www.semiconductors.philips.com/acrobat_download/datasheets/74HC_H
 <attribute name="DIGIKEY_COST" value=".69"/>
 </part>
 <part name="SUPPLY9" library="supply2" deviceset="+14V" device=""/>
-<part name="R4" library="resistor" deviceset="R-US_" device="R1206" value="910">
+<part name="R4" library="resistor" deviceset="R-US_" device="R1206" value="3.2k">
 <attribute name="DIGIKEY" value="RMCF1206JT910RCT-ND"/>
 <attribute name="DIGIKEY_COST" value=".05"/>
 </part>
-<part name="R5" library="resistor" deviceset="R-US_" device="R1206" value="300">
+<part name="R5" library="resistor" deviceset="R-US_" device="R1206" value="1k">
 <attribute name="DIGIKEY" value="RMCF1206JT300RCT-ND"/>
 <attribute name="DIGIKEY_COST" value=".05"/>
 </part>
@@ -6004,12 +6004,11 @@ Source: http://www.semiconductors.philips.com/acrobat_download/datasheets/74HC_H
 </part>
 <part name="T1" library="transistor-neu-to92" deviceset="BC846" device=""/>
 <part name="SUPPLY14" library="supply2" deviceset="GND" device=""/>
-<part name="C4" library="resistor" deviceset="C-US" device="C0805" value=".1u">
-<attribute name="DIGIKEY" value="445-7534-1-ND"/>
-<attribute name="DIGIKEY_COST" value=".10"/>
-</part>
-<part name="SUPPLY18" library="supply2" deviceset="GND" device=""/>
 <part name="R7" library="resistor" deviceset="R-US_" device="R1206" value="10k">
+<attribute name="DIGIKEY" value="RMCF1206JT10K0CT-ND"/>
+<attribute name="DIGIKEY_COST" value=".05"/>
+</part>
+<part name="R8" library="resistor" deviceset="R-US_" device="R1206" value="10k">
 <attribute name="DIGIKEY" value="RMCF1206JT10K0CT-ND"/>
 <attribute name="DIGIKEY_COST" value=".05"/>
 </part>
@@ -6127,14 +6126,13 @@ the programming of the micro.</text>
 <attribute name="VALUE" x="81.28" y="60.96" size="1.778" layer="96"/>
 </instance>
 <instance part="SUPPLY14" gate="GND" x="78.74" y="50.8"/>
-<instance part="C4" gate="G$1" x="210.82" y="53.34">
-<attribute name="DIGIKEY" x="210.82" y="53.34" size="1.778" layer="96" display="off"/>
-<attribute name="DIGIKEY_COST" x="210.82" y="53.34" size="1.778" layer="96" display="off"/>
-</instance>
-<instance part="SUPPLY18" gate="GND" x="210.82" y="38.1"/>
 <instance part="R7" gate="G$1" x="63.5" y="60.96" rot="MR180">
 <attribute name="DIGIKEY" x="63.5" y="60.96" size="1.778" layer="96" rot="MR180" display="off"/>
 <attribute name="DIGIKEY_COST" x="63.5" y="60.96" size="1.778" layer="96" rot="MR180" display="off"/>
+</instance>
+<instance part="R8" gate="G$1" x="208.28" y="66.04" rot="MR180">
+<attribute name="DIGIKEY" x="208.28" y="66.04" size="1.778" layer="96" rot="MR180" display="off"/>
+<attribute name="DIGIKEY_COST" x="208.28" y="66.04" size="1.778" layer="96" rot="MR180" display="off"/>
 </instance>
 </instances>
 <busses>
@@ -6199,11 +6197,6 @@ the programming of the micro.</text>
 <pinref part="T1" gate="G$1" pin="E"/>
 <pinref part="SUPPLY14" gate="GND" pin="GND"/>
 <wire x1="78.74" y1="55.88" x2="78.74" y2="53.34" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="C4" gate="G$1" pin="2"/>
-<pinref part="SUPPLY18" gate="GND" pin="GND"/>
-<wire x1="210.82" y1="48.26" x2="210.82" y2="40.64" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="+14V" class="0">
@@ -6282,22 +6275,14 @@ the programming of the micro.</text>
 </net>
 <net name="MEASURE" class="0">
 <segment>
-<wire x1="187.96" y1="66.04" x2="198.12" y2="66.04" width="0.1524" layer="91"/>
-<label x="220.98" y="66.04" size="1.778" layer="95" rot="MR180" xref="yes"/>
-<pinref part="U3" gate="G$1" pin="OUT"/>
-<pinref part="R6" gate="G$1" pin="1"/>
-<wire x1="198.12" y1="66.04" x2="210.82" y2="66.04" width="0.1524" layer="91"/>
-<wire x1="210.82" y1="66.04" x2="220.98" y2="66.04" width="0.1524" layer="91"/>
-<wire x1="198.12" y1="60.96" x2="198.12" y2="66.04" width="0.1524" layer="91"/>
-<junction x="198.12" y="66.04"/>
-<pinref part="C4" gate="G$1" pin="1"/>
-<wire x1="210.82" y1="55.88" x2="210.82" y2="66.04" width="0.1524" layer="91"/>
-<junction x="210.82" y="66.04"/>
-</segment>
-<segment>
 <wire x1="205.74" y1="177.8" x2="218.44" y2="177.8" width="0.1524" layer="91"/>
 <label x="218.44" y="177.8" size="1.778" layer="95" xref="yes"/>
 <pinref part="U2" gate="A" pin="PB2"/>
+</segment>
+<segment>
+<pinref part="R8" gate="G$1" pin="2"/>
+<wire x1="213.36" y1="66.04" x2="223.52" y2="66.04" width="0.1524" layer="91"/>
+<label x="223.52" y="66.04" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="MOSFET" class="0">
@@ -6401,6 +6386,17 @@ the programming of the micro.</text>
 <pinref part="R7" gate="G$1" pin="2"/>
 <pinref part="T1" gate="G$1" pin="B"/>
 <wire x1="68.58" y1="60.96" x2="73.66" y2="60.96" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="OPAMP_OUT" class="0">
+<segment>
+<wire x1="187.96" y1="66.04" x2="198.12" y2="66.04" width="0.1524" layer="91"/>
+<pinref part="U3" gate="G$1" pin="OUT"/>
+<pinref part="R6" gate="G$1" pin="1"/>
+<wire x1="198.12" y1="60.96" x2="198.12" y2="66.04" width="0.1524" layer="91"/>
+<pinref part="R8" gate="G$1" pin="1"/>
+<wire x1="203.2" y1="66.04" x2="198.12" y2="66.04" width="0.1524" layer="91"/>
+<junction x="198.12" y="66.04"/>
 </segment>
 </net>
 </nets>
