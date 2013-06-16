@@ -4,25 +4,29 @@
  *  Created on: June 2, 2013
  *      Author: Eric Morrison
  *
- *					 ATTINY 10
- *					   _____
+ *					 ATTINY 5
+ *					    _____
  *      MOSFET ---- <1 |	 | 6  ---- RESET (PROGRAMMING ONLY)
  *         GND ----  2 |     | 5  ---- VCC
  *       BLINK ---- >3 |_____| 4< ---- MEASURE
  */
 
 #define __AVR_ATtiny5__		//chip definition
-#define F_CPU 1000000UL		//cpu frequency
+#define F_CPU 1000000UL		//cpu frequency 1MHz
 
 #include <avr/io.h>			//AVR chip specific defs
 #include <avr/interrupt.h>  //interrupt service routines
 #include <stdlib.h>			//standard c functions
 
-#define ADC_LOW_VALUE	80	//current level = (I*30)/(Vin/255)
-#define ADC_HIGH_VALUE	90	//high current level to give a little hysteresis
-#define ADC_PANIC_VALUE 150	//bail out something went horribly wrong
+#define ADC_PANIC_VALUE 250						//bail out something went horribly wrong
+#define LOW 30									//ADC Low value
+#define HYSTERESIS 10							//Hysterysis range
+#define BLINK 150								//Bright value
 
-int PanicFlag;
+volatile int ADC_LOW_VALUE;						//define ADC Lower Limit
+volatile int ADC_HIGH_VALUE;					//define ADC Upper Limit
+
+volatile int PanicFlag;							//define panic flag
 
 void setup()
 {
@@ -30,26 +34,37 @@ void setup()
 	PanicFlag = 0;								//set panic flag to false
 	sei();										//turn on interrupts
 
+	ADC_LOW_VALUE = LOW;						//Initialize low value
+	ADC_HIGH_VALUE = LOW + HYSTERESIS;			//Initialize High Value
+
 	//PWM SETUP
-	TCCR0B = (1<<CS00) | (1<<CS01) | (1<<CS02);	//Internal Clock no prescaler
-	TCCR0B |= (1<<WGM02) | (0<< WGM03); 		//Fast 8 bit PWM B
-	TCCR0B |= (0<<ICNC0);						//Turn Off Noise canceling
+	TCCR0B |= (1<<CS00);
+	TCCR0B &= ~((1<<CS01) | (1<<CS02));			//Internal Clock no prescaler
+	TCCR0B |= (1<<WGM02);
+	TCCR0B &= ~(1<< WGM03);				 		//Fast 8 bit PWM B
+	TCCR0B &= ~(1<<ICNC0);						//Turn Off Noise canceling
 	TCCR0B |= (1<<ICES0);						//Incoming edge select - rising
 
-	TCCR0A = (1<<WGM00) | (0<<WGM01);			//Fast 8 bit PWM A
-	TCCR0A |= (0<<FOC0A) | (0<<FOC0B);			//N/A for PWM must be 0
-	TCCR0A |= (0<<COM0B0) | (1<<COM0B1);		//non-inverting mode
-	TCCR0A |= (0<<COM0A0) | (1<<COM0A1);		//non-inverting Mode
+	TCCR0A |= (1<<WGM00);
+	TCCR0A &= ~(1<<WGM01);						//Fast 8 bit PWM A
+	TCCR0A &= ~((1<<FOC0A) | (1<<FOC0B));		//N/A for PWM must be 0
+	TCCR0A &= ~(1<<COM0B0);
+	TCCR0A |= (1<<COM0B1);						//non-inverting mode
+	TCCR0A &= ~(1<<COM0A0);
+	TCCR0A |= (1<<COM0A1);						//non-inverting Mode
+	//TCCR0A &= ~((1<<COM0B0) | (1<<COM0B1));
+	//TCCR0A &= ~((1<<COM0A0) | (1<<COM0A1));
 
 
 	DDRB = 0b0001;								//pin1 out all others in
 	PUEB = 0b0001;								//enable internal pullup
 	PORTB = 0;									//set pins to high impedance
-	OCR0A = 0;
+	OCR0A = 10;									//start PWM at a low value
 	OCR0B = 0;
 
 	//ADC SETUP
 	PRR &= ~(1<<PRADC);							//turn off adc power reduction
+	ADCSRA |= (1<<ADEN);						//enable ADC
 
 	ADMUX &= ~(1<<MUX0);
 	ADMUX |= (1<<MUX1);							//Select PB2 as ADC input
@@ -67,21 +82,19 @@ void setup()
 
 	DIDR0 |= (1<<ADC2D);						//Disable digital input
 
-	ADCSRA |= (1<<ADEN);						//enable ADC
+
 	ADCSRA |= (1<<ADSC);						//Start Conversion
 
 }
 
 ISR(ADC_vect)
 {
-	//read value of ADCL compare to low high and panic values
-	//and set new PWM value. Conversion is stopped while PWM
-	//is updated.
-	//There is a race condition here but I don't think it will be an
-	//issue. ISR must complete and OCR0A must update and settle before
-	//the next conversion starts to get a good reading.
+	//read value of ADCL compare to low, high and panic values
+	//and set new PWM value.
 
-	//ADCSRA &= ~(0<<ADEN);			//make sure conversion has stopped
+	//There is a race condition here but I don't think it will be an
+	//issue. ISR must complete and OCR0A must updated and settle before
+	//the next conversion starts to get a good reading.
 
 	if (ADCL > ADC_PANIC_VALUE)
 	{
@@ -105,7 +118,7 @@ ISR(ADC_vect)
 		//life is good do nothing
 	}
 
-//	OCR0A = 100;						//just show me something
+//	OCR0A = 20;						//just show me something
 
 	//ADCSRA |= (1<<ADEN);			//start new conversion
 }
@@ -114,10 +127,20 @@ int main ()
 {
 	setup();									//Setup chip;
 
-	while(PanicFlag < 1){};						//Infinite do nothing loop
-												//real work is done by ISR
-												//if PanicFlag is greater
-												//than 0 fail out and stop processor.
+	while(PanicFlag < 1)						//if PanicFlag is greater than 0
+	{											//fail out and stop processor.
+		if (PINB & (1<<PINB1))					//if the blink input is high
+		{
+			ADC_LOW_VALUE = BLINK;				//bright lower limit
+			ADC_HIGH_VALUE = BLINK + HYSTERESIS;//bright upper limit
+		}
+		else
+		{
+			ADC_LOW_VALUE = LOW;				//normal lower limit
+			ADC_HIGH_VALUE = LOW + HYSTERESIS;  //normal upper limit
+		}
+	}
+
 	return 0;
 }
 
