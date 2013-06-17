@@ -38,23 +38,28 @@ void setup()
 	ADC_HIGH_VALUE = LOW + HYSTERESIS;			//Initialize High Value
 
 	//PWM SETUP
-	TCCR0B |= (1<<CS00);
+/*	TCCR0B |= (1<<CS00);
 	TCCR0B &= ~((1<<CS01) | (1<<CS02));			//Internal Clock no prescaler
 	TCCR0B |= (1<<WGM02);
 	TCCR0B &= ~(1<< WGM03);				 		//Fast 8 bit PWM B
 	TCCR0B &= ~(1<<ICNC0);						//Turn Off Noise canceling
 	TCCR0B |= (1<<ICES0);						//Incoming edge select - rising
+*/
+	//TCCR0B - ICNC0 | ICES0 | - | WGM03 | WGM02 | CS02 | CS01 | CS00
+	TCCR0B = 0b01001001;						//same as above in 1 operation
 
+/*
 	TCCR0A |= (1<<WGM00);
 	TCCR0A &= ~(1<<WGM01);						//Fast 8 bit PWM A
-	TCCR0A &= ~((1<<FOC0A) | (1<<FOC0B));		//N/A for PWM must be 0
 	TCCR0A &= ~(1<<COM0B0);
 	TCCR0A |= (1<<COM0B1);						//non-inverting mode
 	TCCR0A &= ~(1<<COM0A0);
 	TCCR0A |= (1<<COM0A1);						//non-inverting Mode
-	//TCCR0A &= ~((1<<COM0B0) | (1<<COM0B1));
-	//TCCR0A &= ~((1<<COM0A0) | (1<<COM0A1));
+*/
+	//TCCR0A = COM0A1 | COM0A0 | COM0B1 | COM0B0 | - | - | WGM01 | WGM00
+	TCCR0A = 0b10100001;
 
+	TCCR0C &= ~((1<<FOC0A) | (1<<FOC0B));		//N/A for PWM must be 0
 
 	DDRB = 0b0001;								//pin1 out all others in
 	PUEB = 0b0001;								//enable internal pullup
@@ -64,24 +69,26 @@ void setup()
 
 	//ADC SETUP
 	PRR &= ~(1<<PRADC);							//turn off adc power reduction
-	ADCSRA |= (1<<ADEN);						//enable ADC
 
 	ADMUX &= ~(1<<MUX0);
 	ADMUX |= (1<<MUX1);							//Select PB2 as ADC input
 
+	ADCSRB &= ~((1<<ADTS2) |
+				 (1<<ADTS1) |
+				 (1<<ADTS0));					//ADC Trigger Source Free Running
+
+	DIDR0 |= (1<<ADC2D);						//Disable digital input
+/*
+	ADCSRA |= (1<<ADEN);						//enable ADC
 	ADCSRA &= ~(1<<ADPS2);						//Set prescaler to div 4
 	ADCSRA |= ((1<<ADPS1) |						//125kHz @ 1MHz CPU
 			 (1<<ADPS0));						//required range 50-200kHz
 
 	ADCSRA |= (1<<ADIE);						//Enable ADC Interrupt
 	ADCSRA |= (1<<ADATE);						//Auto Trigger
-
-	ADCSRB &= ~((1<<ADTS2) |
-			 (1<<ADTS1) |
-			 (1<<ADTS0));						//ADC Trigger Source Free Running
-
-	DIDR0 |= (1<<ADC2D);						//Disable digital input
-
+*/
+//	ADCSRA - ADEN | ADSC | ADATE | ADIF | ADIE | ADPS2 | ADPS1 | ADPS0
+	ADCSRA = 0b10101011;						//same as above in one operation
 
 	ADCSRA |= (1<<ADSC);						//Start Conversion
 
@@ -103,14 +110,10 @@ ISR(ADC_vect)
 	}
 	else if (ADCL < ADC_LOW_VALUE)	//if current is below set point
 	{
-		//OCR0A += ADC_LOW_VALUE-ADCL;//bump it up by the difference
-									//between the set and actual
 		OCR0A += 1;					//ramp up to the value
 	}
 	else if (ADCL > ADC_HIGH_VALUE)	//if current is above set point
 	{
-		//OCR0A -= ADCL-ADC_LOW_VALUE;//bump it down by the difference
-									//between the set and actual
 		OCR0A -= 2;					//lets ramp down a little faster than up
 	}
 	else
@@ -118,9 +121,7 @@ ISR(ADC_vect)
 		//life is good do nothing
 	}
 
-//	OCR0A = 20;						//just show me something
 
-	//ADCSRA |= (1<<ADEN);			//start new conversion
 }
 
 int main ()
