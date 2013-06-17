@@ -26,7 +26,7 @@
 volatile int ADC_LOW_VALUE;						//define ADC Lower Limit
 volatile int ADC_HIGH_VALUE;					//define ADC Upper Limit
 
-volatile int PanicFlag;							//define panic flag
+volatile uint8_t PanicFlag;						//define panic flag
 
 void setup()
 {
