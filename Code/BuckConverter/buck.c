@@ -23,8 +23,8 @@
 #define HYSTERESIS 10							//Hysterysis range
 #define BLINK 150								//Bright value
 
-volatile int ADC_LOW_VALUE;						//define ADC Lower Limit
-volatile int ADC_HIGH_VALUE;					//define ADC Upper Limit
+volatile uint8_t ADC_LOW_VALUE;					//define ADC Lower Limit
+volatile uint8_t ADC_HIGH_VALUE;				//define ADC Upper Limit
 
 volatile uint8_t PanicFlag;						//define panic flag
 
@@ -88,7 +88,7 @@ void setup()
 	ADCSRA |= (1<<ADATE);						//Auto Trigger
 */
 //	ADCSRA - ADEN | ADSC | ADATE | ADIF | ADIE | ADPS2 | ADPS1 | ADPS0
-	ADCSRA = 0b10101011;						//same as above in one operation
+	ADCSRA = 0b10101100;						//same as above in one operation
 
 	ADCSRA |= (1<<ADSC);						//Start Conversion
 
@@ -102,6 +102,17 @@ ISR(ADC_vect)
 	//There is a race condition here but I don't think it will be an
 	//issue. ISR must complete and OCR0A must updated and settle before
 	//the next conversion starts to get a good reading.
+
+	if (PINB & (1<<PINB1))					//if the blink input is high
+	{
+		ADC_LOW_VALUE = BLINK;				//bright lower limit
+		ADC_HIGH_VALUE = BLINK + HYSTERESIS;//bright upper limit
+	}
+	else
+	{
+		ADC_LOW_VALUE = LOW;				//normal lower limit
+		ADC_HIGH_VALUE = LOW + HYSTERESIS;  //normal upper limit
+	}
 
 	if (ADCL > ADC_PANIC_VALUE)
 	{
@@ -130,16 +141,7 @@ int main ()
 
 	while(PanicFlag < 1)						//if PanicFlag is greater than 0
 	{											//fail out and stop processor.
-		if (PINB & (1<<PINB1))					//if the blink input is high
-		{
-			ADC_LOW_VALUE = BLINK;				//bright lower limit
-			ADC_HIGH_VALUE = BLINK + HYSTERESIS;//bright upper limit
-		}
-		else
-		{
-			ADC_LOW_VALUE = LOW;				//normal lower limit
-			ADC_HIGH_VALUE = LOW + HYSTERESIS;  //normal upper limit
-		}
+
 	}
 
 	return 0;
