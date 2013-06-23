@@ -69,8 +69,8 @@
 <text x="23.1648" y="13.0556" size="0.508" layer="16" font="vector" ratio="20" rot="MR0">EWM 20130621
 AT DRIVER 3</text>
 <text x="14.4018" y="4.2926" size="0.8128" layer="25">D</text>
-<text x="8.8646" y="7.5438" size="0.8128" layer="25">C</text>
-<text x="5.4356" y="10.16" size="0.8128" layer="25">G</text>
+<text x="10.0584" y="6.9088" size="0.8128" layer="25">C</text>
+<text x="3.7338" y="13.4874" size="0.8128" layer="25">G</text>
 <text x="13.208" y="3.4036" size="0.8128" layer="25">R</text>
 <text x="8.3058" y="3.7084" size="0.8128" layer="25">V</text>
 </plain>
@@ -1449,33 +1449,35 @@ at 27/07/2012 14:02:49</description>
 <text x="-3.2766" y="3.175" size="1.27" layer="25" ratio="6" rot="SR0">&gt;NAME</text>
 <text x="-2.54" y="-3.81" size="1.27" layer="27">&gt;VALUE</text>
 </package>
-<package name="D1206">
-<description>&lt;b&gt;RESISTOR&lt;/b&gt;&lt;p&gt;
-chip</description>
-<wire x1="0.9525" y1="-0.8128" x2="-0.9652" y2="-0.8128" width="0.1524" layer="51"/>
-<wire x1="0.9525" y1="0.8128" x2="-0.9652" y2="0.8128" width="0.1524" layer="51"/>
-<wire x1="-2.473" y1="0.983" x2="2.473" y2="0.983" width="0.0508" layer="39"/>
-<wire x1="2.473" y1="0.983" x2="2.473" y2="-0.983" width="0.0508" layer="39"/>
-<wire x1="2.473" y1="-0.983" x2="-2.473" y2="-0.983" width="0.0508" layer="39"/>
-<wire x1="-2.473" y1="-0.983" x2="-2.473" y2="0.983" width="0.0508" layer="39"/>
-<smd name="2" x="1.422" y="0" dx="1.6" dy="1.803" layer="1"/>
-<smd name="1" x="-1.422" y="0" dx="1.6" dy="1.803" layer="1"/>
-<text x="-1.397" y="1.143" size="1.27" layer="25">&gt;NAME</text>
-<rectangle x1="-1.6891" y1="-0.8763" x2="-0.9525" y2="0.8763" layer="51"/>
-<rectangle x1="0.9525" y1="-0.8763" x2="1.6891" y2="0.8763" layer="51"/>
-<rectangle x1="-0.3" y1="-0.7" x2="0.3" y2="0.7" layer="35"/>
-<wire x1="-0.508" y1="0" x2="-0.254" y2="0" width="0.127" layer="21"/>
-<wire x1="-0.254" y1="0" x2="-0.127" y2="0" width="0.127" layer="21"/>
-<wire x1="-0.127" y1="0" x2="0.508" y2="0" width="0.127" layer="21"/>
-<wire x1="-0.254" y1="0.254" x2="-0.254" y2="0" width="0.127" layer="21"/>
-<wire x1="-0.254" y1="0" x2="-0.254" y2="-0.254" width="0.127" layer="21"/>
-<wire x1="-0.254" y1="0" x2="0.254" y2="0.254" width="0.127" layer="21"/>
-<wire x1="0.254" y1="0.254" x2="0.254" y2="0.127" width="0.127" layer="21"/>
-<wire x1="0.254" y1="-0.127" x2="0.254" y2="-0.254" width="0.127" layer="21"/>
-<wire x1="0.254" y1="-0.254" x2="-0.254" y2="0" width="0.127" layer="21"/>
-<wire x1="-0.254" y1="0" x2="0.254" y2="0.127" width="0.127" layer="21"/>
-<wire x1="0.254" y1="0.127" x2="0.254" y2="-0.127" width="0.127" layer="21"/>
-<wire x1="0.254" y1="-0.127" x2="-0.127" y2="0" width="0.127" layer="21"/>
+<package name="D0603">
+<description>&lt;b&gt;DIODE&lt;/b&gt;&lt;p&gt;
+0603 chip</description>
+<wire x1="-0.432" y1="-0.356" x2="0.432" y2="-0.356" width="0.1524" layer="51"/>
+<wire x1="0.432" y1="0.356" x2="-0.432" y2="0.356" width="0.1524" layer="51"/>
+<wire x1="-1.473" y1="0.729" x2="1.727" y2="0.729" width="0.0508" layer="39"/>
+<wire x1="1.727" y1="0.729" x2="1.727" y2="-0.729" width="0.0508" layer="39"/>
+<wire x1="1.727" y1="-0.729" x2="-1.473" y2="-0.729" width="0.0508" layer="39"/>
+<wire x1="-1.473" y1="-0.729" x2="-1.473" y2="0.729" width="0.0508" layer="39"/>
+<smd name="1A" x="-0.85" y="0" dx="1" dy="1.1" layer="1"/>
+<smd name="2C" x="0.85" y="0" dx="1" dy="1.1" layer="1"/>
+<text x="-1.651" y="1.397" size="1.27" layer="25">&gt;NAME</text>
+<text x="-0.889" y="-2.032" size="1.27" layer="27">&gt;VALUE</text>
+<rectangle x1="0.4318" y1="-0.4318" x2="0.8382" y2="0.4318" layer="51"/>
+<rectangle x1="-0.8382" y1="-0.4318" x2="-0.4318" y2="0.4318" layer="51"/>
+<rectangle x1="-0.1999" y1="-0.4001" x2="0.1999" y2="0.4001" layer="35"/>
+<polygon width="0.0762" layer="1">
+<vertex x="1.27" y="0.508"/>
+<vertex x="1.524" y="0.254"/>
+<vertex x="1.524" y="-0.254"/>
+<vertex x="1.27" y="-0.508"/>
+</polygon>
+<wire x1="-0.762" y1="1.016" x2="-0.254" y2="1.016" width="0.127" layer="51"/>
+<wire x1="-0.254" y1="1.016" x2="-0.254" y2="1.27" width="0.127" layer="51"/>
+<wire x1="-0.254" y1="1.27" x2="0.254" y2="1.016" width="0.127" layer="51"/>
+<wire x1="0.254" y1="1.016" x2="-0.254" y2="0.762" width="0.127" layer="51"/>
+<wire x1="-0.254" y1="0.762" x2="-0.254" y2="1.016" width="0.127" layer="51"/>
+<wire x1="0.254" y1="1.016" x2="0.762" y2="1.016" width="0.127" layer="51"/>
+<wire x1="0.254" y1="1.27" x2="0.254" y2="0.762" width="0.127" layer="51"/>
 </package>
 </packages>
 </library>
@@ -1741,14 +1743,14 @@ design rules under a new name.</description>
 <attribute name="DIGIKEY" value="ATTINY10-TSHRCT-ND" x="12.6238" y="7.6962" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="DIGIKEY_COST" value=".69" x="12.6238" y="7.6962" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
-<element name="R6" library="resistor" package="R0603" value="3.2k" x="8.7884" y="10.9474" smashed="yes" rot="R180">
+<element name="R6" library="resistor" package="R0603" value="3.3k" x="8.7884" y="10.9474" smashed="yes" rot="R180">
 <attribute name="NAME" x="7.9756" y="12.0904" size="0.8128" layer="25"/>
 <attribute name="VALUE" x="10.1854" y="13.3604" size="1.27" layer="27" rot="R180"/>
-<attribute name="DIGIKEY" value="RMCF1206JT910RCT-ND" x="8.7884" y="10.9474" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="DIGIKEY_COST" value=".05" x="8.7884" y="10.9474" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="DIGIKEY" value="RMCF0603FT3K30CT-ND" x="8.7884" y="10.9474" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="DIGIKEY_COST" value=".04" x="8.7884" y="10.9474" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="R7" library="resistor" package="R0603" value="1k" x="8.8138" y="8.8138" smashed="yes" rot="R180">
-<attribute name="NAME" x="5.8166" y="8.89" size="0.8128" layer="25"/>
+<attribute name="NAME" x="10.2108" y="9.5504" size="0.8128" layer="25"/>
 <attribute name="VALUE" x="10.2108" y="11.2268" size="1.27" layer="27" rot="R180"/>
 <attribute name="DIGIKEY" value="RMCF0603FT1K00CT-ND" x="8.8138" y="8.8138" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="DIGIKEY_COST" value=".04" x="8.8138" y="8.8138" size="1.778" layer="27" rot="R180" display="off"/>
@@ -1762,7 +1764,7 @@ design rules under a new name.</description>
 <element name="TPIDATA" library="Personal" package="TPI_PAD" value="TPI" x="15.4178" y="4.2418"/>
 <element name="TPICLK" library="Personal" package="TPI_PAD" value="TPI" x="9.5504" y="7.3152"/>
 <element name="+5V" library="Personal" package="TPI_PAD" value="TPI" x="8.89" y="5.334"/>
-<element name="GND" library="Personal" package="TPI_PAD" value="TPI" x="5.08" y="9.525" locked="yes"/>
+<element name="GND" library="Personal" package="TPI_PAD" value="TPI" x="5.0292" y="12.8016"/>
 <element name="C1" library="resistor" package="C0603" value="10n" x="6.5278" y="3.1496" smashed="yes" rot="R180">
 <attribute name="NAME" x="6.9088" y="1.8542" size="0.8128" layer="25" rot="R180"/>
 <attribute name="VALUE" x="7.4168" y="5.1816" size="1.27" layer="27" rot="R180"/>
@@ -1779,6 +1781,8 @@ design rules under a new name.</description>
 <element name="Q2" library="transistor-neu-to92" package="SOT23" value="BC846" x="19.8882" y="4.5212" smashed="yes" rot="R180">
 <attribute name="NAME" x="22.098" y="3.7592" size="0.8128" layer="25"/>
 <attribute name="VALUE" x="21.7932" y="7.6962" size="1.27" layer="27" rot="R180"/>
+<attribute name="DIGIKEY" value="BC846BMTFCT-ND" x="19.8882" y="4.5212" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="DIGIKEY_COST" value=".17" x="19.8882" y="4.5212" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="R1" library="resistor" package="R0603" value="10k" x="15.7734" y="3.0988" smashed="yes">
 <attribute name="DIGIKEY_COST" value=".04" x="15.7734" y="3.0988" size="1.778" layer="27" display="off"/>
@@ -1828,8 +1832,10 @@ design rules under a new name.</description>
 <attribute name="NAME" x="21.59" y="13.0556" size="0.8128" layer="25" rot="R180"/>
 <attribute name="VALUE" x="24.7142" y="9.7536" size="1.27" layer="27" rot="R90"/>
 </element>
-<element name="D1" library="Combined" package="D1206" value="CD1206-B260" x="6.2738" y="13.4112" smashed="yes" rot="R180">
-<attribute name="NAME" x="6.858" y="12.192" size="0.8128" layer="25" rot="R180"/>
+<element name="D1" library="Combined" package="D0603" value="DIODE_0603" x="6.2484" y="10.2108" smashed="yes" rot="R90">
+<attribute name="NAME" x="7.0358" y="12.9286" size="0.8128" layer="25" rot="R180"/>
+<attribute name="DIGIKEY" value="CD1206-B260CT-ND" x="6.2484" y="10.2108" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="DIGIKEY_COST" value=".49" x="6.2484" y="10.2108" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="R8" library="resistor" package="R0603" value="1k" x="16.0528" y="13.0048" smashed="yes">
 <attribute name="DIGIKEY_COST" value=".04" x="16.0528" y="13.0048" size="1.778" layer="27" display="off"/>
@@ -2110,17 +2116,17 @@ design rules under a new name.</description>
 </signal>
 <signal name="N$1">
 <contactref element="X2" pad="3"/>
-<contactref element="D1" pad="2"/>
-<wire x1="4.8518" y1="13.4112" x2="4.8518" y2="10.7192" width="0.4064" layer="1"/>
-<wire x1="4.8518" y1="10.7192" x2="4.2418" y2="10.1092" width="0.4064" layer="1"/>
-<wire x1="4.2418" y1="10.1092" x2="2.5908" y2="10.1092" width="0.4064" layer="1"/>
-<wire x1="2.5908" y1="10.1092" x2="2.54" y2="10.16" width="0.4064" layer="1"/>
+<contactref element="D1" pad="1A"/>
+<wire x1="2.54" y1="10.16" x2="4.0894" y2="10.16" width="0.4064" layer="1"/>
+<wire x1="4.0894" y1="10.16" x2="4.9022" y2="9.3472" width="0.4064" layer="1"/>
+<wire x1="4.9022" y1="9.3472" x2="6.2348" y2="9.3472" width="0.4064" layer="1"/>
+<wire x1="6.2348" y1="9.3472" x2="6.2484" y2="9.3608" width="0.4064" layer="1"/>
 </signal>
 <signal name="N$4">
-<contactref element="D1" pad="1"/>
+<contactref element="D1" pad="2C"/>
 <contactref element="R6" pad="2"/>
-<wire x1="7.6958" y1="13.4112" x2="7.6958" y2="11.19" width="0.4064" layer="1"/>
-<wire x1="7.6958" y1="11.19" x2="7.9384" y2="10.9474" width="0.4064" layer="1"/>
+<wire x1="6.2484" y1="11.0608" x2="7.825" y2="11.0608" width="0.4064" layer="1"/>
+<wire x1="7.825" y1="11.0608" x2="7.9384" y2="10.9474" width="0.4064" layer="1"/>
 </signal>
 </signals>
 </board>

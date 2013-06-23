@@ -6055,12 +6055,12 @@ chip</description>
 <attribute name="DIGIKEY_COST" value=".05"/>
 </part>
 <part name="R7" library="resistor" deviceset="R-US_" device="R0603" value="1k">
-<attribute name="DIGIKEY" value="RMCF0603FT10K0CT-ND"/>
+<attribute name="DIGIKEY" value="RMCF0603FT1K00CT-ND"/>
 <attribute name="DIGIKEY_COST" value=".04"/>
 </part>
 <part name="SUPPLY10" library="supply2" deviceset="GND" device=""/>
 <part name="R2" library="resistor" deviceset="R-US_" device="R0603" value="1k">
-<attribute name="DIGIKEY" value="RMCF0603FT10K0CT-ND"/>
+<attribute name="DIGIKEY" value="RMCF0603FT1K00CT-ND"/>
 <attribute name="DIGIKEY_COST" value=".04"/>
 </part>
 <part name="TPIDATA" library="Personal" deviceset="TPI" device=""/>
@@ -6077,15 +6077,14 @@ chip</description>
 <part name="RESET" library="Personal" deviceset="TPI" device=""/>
 <part name="SUPPLY19" library="supply2" deviceset="GND" device=""/>
 <part name="SUPPLY21" library="supply2" deviceset="VCC" device=""/>
-<part name="R8" library="resistor" deviceset="R-US_" device="R0603" value="1K">
-<attribute name="DIGIKEY" value="RMCF0603FT10K0CT-ND"/>
-<attribute name="DIGIKEY_COST" value=".04"/>
-</part>
 <part name="R9" library="resistor" deviceset="R-US_" device="R0603" value="28.7K">
 <attribute name="DIGIKEY" value="RMCF0603FT28R7CT-ND"/>
 <attribute name="DIGIKEY_COST" value=".04"/>
 </part>
-<part name="Q2" library="transistor-neu-to92" deviceset="BC846" device=""/>
+<part name="Q2" library="transistor-neu-to92" deviceset="BC846" device="">
+<attribute name="DIGIKEY" value="BC846BMTFCT-ND"/>
+<attribute name="DIGIKEY_COST" value=".17"/>
+</part>
 <part name="SUPPLY14" library="supply2" deviceset="GND" device=""/>
 <part name="R1" library="resistor" deviceset="R-US_" device="R0603" value="10k">
 <attribute name="DIGIKEY" value="RMCF0603FT10K0CT-ND"/>
@@ -6124,6 +6123,10 @@ chip</description>
 </part>
 <part name="SUPPLY22" library="supply2" deviceset="GND" device=""/>
 <part name="D1" library="Combined" deviceset="CD1206-B260" device=""/>
+<part name="R8" library="resistor" deviceset="R-US_" device="R0603" value="1k">
+<attribute name="DIGIKEY" value="RMCF0603FT1K00CT-ND"/>
+<attribute name="DIGIKEY_COST" value=".04"/>
+</part>
 </parts>
 <sheets>
 <sheet>
@@ -6221,10 +6224,6 @@ the programming of the micro.</text>
 <instance part="RESET" gate="G$1" x="43.18" y="114.3"/>
 <instance part="SUPPLY19" gate="GND" x="228.6" y="114.3"/>
 <instance part="SUPPLY21" gate="G$1" x="165.1" y="66.04"/>
-<instance part="R8" gate="G$1" x="228.6" y="124.46" rot="R90">
-<attribute name="DIGIKEY" x="228.6" y="124.46" size="1.778" layer="96" rot="R90" display="off"/>
-<attribute name="DIGIKEY_COST" x="228.6" y="124.46" size="1.778" layer="96" rot="R90" display="off"/>
-</instance>
 <instance part="R9" gate="G$1" x="238.76" y="132.08" rot="R180">
 <attribute name="DIGIKEY" x="238.76" y="132.08" size="1.778" layer="96" rot="R180" display="off"/>
 <attribute name="DIGIKEY_COST" x="238.76" y="132.08" size="1.778" layer="96" rot="R180" display="off"/>
@@ -6232,6 +6231,8 @@ the programming of the micro.</text>
 <instance part="Q2" gate="G$1" x="76.2" y="60.96" smashed="yes">
 <attribute name="NAME" x="81.28" y="58.42" size="1.778" layer="95"/>
 <attribute name="VALUE" x="81.28" y="60.96" size="1.778" layer="96"/>
+<attribute name="DIGIKEY" x="76.2" y="60.96" size="1.778" layer="96" display="off"/>
+<attribute name="DIGIKEY_COST" x="76.2" y="60.96" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="SUPPLY14" gate="GND" x="78.74" y="50.8"/>
 <instance part="R1" gate="G$1" x="63.5" y="60.96" rot="MR180">
@@ -6271,6 +6272,10 @@ the programming of the micro.</text>
 </instance>
 <instance part="SUPPLY22" gate="GND" x="243.84" y="35.56"/>
 <instance part="D1" gate="G$1" x="167.64" y="124.46"/>
+<instance part="R8" gate="G$1" x="228.6" y="124.46" rot="MR270">
+<attribute name="DIGIKEY" x="228.6" y="124.46" size="1.778" layer="96" rot="MR270" display="off"/>
+<attribute name="DIGIKEY_COST" x="228.6" y="124.46" size="1.778" layer="96" rot="MR270" display="off"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -6321,9 +6326,9 @@ the programming of the micro.</text>
 <wire x1="50.8" y1="165.1" x2="50.8" y2="162.56" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="R8" gate="G$1" pin="1"/>
 <pinref part="SUPPLY19" gate="GND" pin="GND"/>
 <wire x1="228.6" y1="119.38" x2="228.6" y2="116.84" width="0.1524" layer="91"/>
+<pinref part="R8" gate="G$1" pin="2"/>
 </segment>
 <segment>
 <pinref part="Q2" gate="G$1" pin="E"/>
@@ -6588,13 +6593,13 @@ the programming of the micro.</text>
 <label x="190.5" y="45.72" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
-<pinref part="R8" gate="G$1" pin="2"/>
 <wire x1="220.98" y1="132.08" x2="228.6" y2="132.08" width="0.1524" layer="91"/>
 <pinref part="R9" gate="G$1" pin="2"/>
 <wire x1="228.6" y1="132.08" x2="228.6" y2="129.54" width="0.1524" layer="91"/>
 <wire x1="233.68" y1="132.08" x2="228.6" y2="132.08" width="0.1524" layer="91"/>
 <junction x="228.6" y="132.08"/>
 <label x="220.98" y="132.08" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="R8" gate="G$1" pin="1"/>
 </segment>
 </net>
 <net name="N$1" class="0">
