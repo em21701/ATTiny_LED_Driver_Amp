@@ -5808,6 +5808,34 @@ type 0309, grid 2.5 mm</description>
 <text x="-3.2766" y="3.175" size="1.27" layer="25" ratio="6" rot="SR0">&gt;NAME</text>
 <text x="-2.54" y="-3.81" size="1.27" layer="27">&gt;VALUE</text>
 </package>
+<package name="D1206">
+<description>&lt;b&gt;RESISTOR&lt;/b&gt;&lt;p&gt;
+chip</description>
+<wire x1="0.9525" y1="-0.8128" x2="-0.9652" y2="-0.8128" width="0.1524" layer="51"/>
+<wire x1="0.9525" y1="0.8128" x2="-0.9652" y2="0.8128" width="0.1524" layer="51"/>
+<wire x1="-2.473" y1="0.983" x2="2.473" y2="0.983" width="0.0508" layer="39"/>
+<wire x1="2.473" y1="0.983" x2="2.473" y2="-0.983" width="0.0508" layer="39"/>
+<wire x1="2.473" y1="-0.983" x2="-2.473" y2="-0.983" width="0.0508" layer="39"/>
+<wire x1="-2.473" y1="-0.983" x2="-2.473" y2="0.983" width="0.0508" layer="39"/>
+<smd name="2" x="1.422" y="0" dx="1.6" dy="1.803" layer="1"/>
+<smd name="1" x="-1.422" y="0" dx="1.6" dy="1.803" layer="1"/>
+<text x="-1.397" y="1.143" size="1.27" layer="25">&gt;NAME</text>
+<rectangle x1="-1.6891" y1="-0.8763" x2="-0.9525" y2="0.8763" layer="51"/>
+<rectangle x1="0.9525" y1="-0.8763" x2="1.6891" y2="0.8763" layer="51"/>
+<rectangle x1="-0.3" y1="-0.7" x2="0.3" y2="0.7" layer="35"/>
+<wire x1="-0.508" y1="0" x2="-0.254" y2="0" width="0.127" layer="21"/>
+<wire x1="-0.254" y1="0" x2="-0.127" y2="0" width="0.127" layer="21"/>
+<wire x1="-0.127" y1="0" x2="0.508" y2="0" width="0.127" layer="21"/>
+<wire x1="-0.254" y1="0.254" x2="-0.254" y2="0" width="0.127" layer="21"/>
+<wire x1="-0.254" y1="0" x2="-0.254" y2="-0.254" width="0.127" layer="21"/>
+<wire x1="-0.254" y1="0" x2="0.254" y2="0.254" width="0.127" layer="21"/>
+<wire x1="0.254" y1="0.254" x2="0.254" y2="0.127" width="0.127" layer="21"/>
+<wire x1="0.254" y1="-0.127" x2="0.254" y2="-0.254" width="0.127" layer="21"/>
+<wire x1="0.254" y1="-0.254" x2="-0.254" y2="0" width="0.127" layer="21"/>
+<wire x1="-0.254" y1="0" x2="0.254" y2="0.127" width="0.127" layer="21"/>
+<wire x1="0.254" y1="0.127" x2="0.254" y2="-0.127" width="0.127" layer="21"/>
+<wire x1="0.254" y1="-0.127" x2="-0.127" y2="0" width="0.127" layer="21"/>
+</package>
 </packages>
 <symbols>
 <symbol name="IGFET-EP-GDS">
@@ -5844,6 +5872,21 @@ type 0309, grid 2.5 mm</description>
 <text x="-10.4394" y="16.7386" size="2.0828" layer="95" ratio="6" rot="SR0">&gt;NAME</text>
 <text x="-8.8646" y="14.1986" size="2.0828" layer="96" ratio="6" rot="SR0">&gt;VALUE</text>
 </symbol>
+<symbol name="SCHOTTKY-1">
+<wire x1="-1.27" y1="-1.27" x2="1.27" y2="0" width="0.254" layer="94"/>
+<wire x1="1.27" y1="0" x2="-1.27" y2="1.27" width="0.254" layer="94"/>
+<wire x1="1.905" y1="1.27" x2="1.27" y2="1.27" width="0.254" layer="94"/>
+<wire x1="1.27" y1="1.27" x2="1.27" y2="0" width="0.254" layer="94"/>
+<wire x1="-1.27" y1="1.27" x2="-1.27" y2="-1.27" width="0.254" layer="94"/>
+<wire x1="1.27" y1="0" x2="1.27" y2="-1.27" width="0.254" layer="94"/>
+<wire x1="1.905" y1="1.27" x2="1.905" y2="1.016" width="0.254" layer="94"/>
+<wire x1="1.27" y1="-1.27" x2="0.635" y2="-1.27" width="0.254" layer="94"/>
+<wire x1="0.635" y1="-1.016" x2="0.635" y2="-1.27" width="0.254" layer="94"/>
+<text x="-2.286" y="1.905" size="1.778" layer="95">&gt;NAME</text>
+<text x="-2.286" y="-3.429" size="1.778" layer="96">&gt;VALUE</text>
+<pin name="A" x="-2.54" y="0" visible="off" length="short" direction="pas"/>
+<pin name="C" x="2.54" y="0" visible="off" length="short" direction="pas" rot="R180"/>
+</symbol>
 </symbols>
 <devicesets>
 <deviceset name="SI2301CDS">
@@ -5878,6 +5921,23 @@ type 0309, grid 2.5 mm</description>
 <connect gate="A" pin="VOUTA" pad="1"/>
 <connect gate="A" pin="VOUTB" pad="7"/>
 <connect gate="A" pin="VSS" pad="4"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="CD1206-B260">
+<description>CD1206-B260 Schottky Diode 60V 2A 1206</description>
+<gates>
+<gate name="G$1" symbol="SCHOTTKY-1" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="D1206">
+<connects>
+<connect gate="G$1" pin="A" pad="2"/>
+<connect gate="G$1" pin="C" pad="1"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -5990,18 +6050,18 @@ type 0309, grid 2.5 mm</description>
 <attribute name="DIGIKEY_COST" value=".69"/>
 </part>
 <part name="SUPPLY9" library="supply2" deviceset="+14V" device=""/>
-<part name="R6" library="resistor" deviceset="R-US_" device="R0603" value="3.2k">
-<attribute name="DIGIKEY" value="RMCF1206JT910RCT-ND"/>
-<attribute name="DIGIKEY_COST" value=".05"/>
+<part name="R6" library="resistor" deviceset="R-US_" device="R0603" value="3.3k">
+<attribute name="DIGIKEY" value="RMCF0603FT3K30CT-ND"/>
+<attribute name="DIGIKEY_COST" value=".04"/>
 </part>
 <part name="R7" library="resistor" deviceset="R-US_" device="R0603" value="1k">
-<attribute name="DIGIKEY" value="RMCF1206JT300RCT-ND"/>
-<attribute name="DIGIKEY_COST" value=".05"/>
+<attribute name="DIGIKEY" value="RMCF0603FT1K00CT-ND"/>
+<attribute name="DIGIKEY_COST" value=".04"/>
 </part>
 <part name="SUPPLY10" library="supply2" deviceset="GND" device=""/>
 <part name="R2" library="resistor" deviceset="R-US_" device="R0603" value="1k">
-<attribute name="DIGIKEY" value="RMCF1206JT10K0CT-ND"/>
-<attribute name="DIGIKEY_COST" value=".05"/>
+<attribute name="DIGIKEY" value="RMCF0603FT1K00CT-ND"/>
+<attribute name="DIGIKEY_COST" value=".04"/>
 </part>
 <part name="TPIDATA" library="Personal" deviceset="TPI" device=""/>
 <part name="TPICLK" library="Personal" deviceset="TPI" device=""/>
@@ -6017,23 +6077,22 @@ type 0309, grid 2.5 mm</description>
 <part name="RESET" library="Personal" deviceset="TPI" device=""/>
 <part name="SUPPLY19" library="supply2" deviceset="GND" device=""/>
 <part name="SUPPLY21" library="supply2" deviceset="VCC" device=""/>
-<part name="R8" library="resistor" deviceset="R-US_" device="R0603" value="1K">
-<attribute name="DIGIKEY" value="RMCF0603JT1K00CT-ND"/>
-<attribute name="DIGIKEY_COST" value=".02"/>
-</part>
 <part name="R9" library="resistor" deviceset="R-US_" device="R0603" value="28.7K">
 <attribute name="DIGIKEY" value="RMCF0603FT28R7CT-ND"/>
 <attribute name="DIGIKEY_COST" value=".04"/>
 </part>
-<part name="T1" library="transistor-neu-to92" deviceset="BC846" device=""/>
+<part name="Q2" library="transistor-neu-to92" deviceset="BC846" device="">
+<attribute name="DIGIKEY" value="BC846BMTFCT-ND"/>
+<attribute name="DIGIKEY_COST" value=".17"/>
+</part>
 <part name="SUPPLY14" library="supply2" deviceset="GND" device=""/>
 <part name="R1" library="resistor" deviceset="R-US_" device="R0603" value="10k">
-<attribute name="DIGIKEY" value="RMCF1206JT10K0CT-ND"/>
-<attribute name="DIGIKEY_COST" value=".05"/>
+<attribute name="DIGIKEY" value="RMCF0603FT10K0CT-ND"/>
+<attribute name="DIGIKEY_COST" value=".04"/>
 </part>
 <part name="R3" library="resistor" deviceset="R-US_" device="R0603" value="10k">
-<attribute name="DIGIKEY" value="RMCF1206JT10K0CT-ND"/>
-<attribute name="DIGIKEY_COST" value=".05"/>
+<attribute name="DIGIKEY" value="RMCF0603FT10K0CT-ND"/>
+<attribute name="DIGIKEY_COST" value=".04"/>
 </part>
 <part name="C4" library="resistor" deviceset="C-US" device="C0603" value=".1u">
 <attribute name="DIGIKEY" value="445-1316-1-ND"/>
@@ -6055,14 +6114,22 @@ type 0309, grid 2.5 mm</description>
 <attribute name="DIGIKEY_COST" value=".64"/>
 </part>
 <part name="R4" library="resistor" deviceset="R-US_" device="R0603" value="10k">
-<attribute name="DIGIKEY" value="RMCF1206JT10K0CT-ND"/>
-<attribute name="DIGIKEY_COST" value=".05"/>
+<attribute name="DIGIKEY" value="RMCF0603FT10K0CT-ND"/>
+<attribute name="DIGIKEY_COST" value=".04"/>
 </part>
 <part name="C2" library="resistor" deviceset="C-US" device="C0603" value=".1u">
 <attribute name="DIGIKEY" value="445-1316-1-ND"/>
 <attribute name="DIGIKEY_COST" value=".10"/>
 </part>
 <part name="SUPPLY22" library="supply2" deviceset="GND" device=""/>
+<part name="D1" library="Combined" deviceset="CD1206-B260" device="">
+<attribute name="DIGIKEY" value="CD1206-B260CT-ND"/>
+<attribute name="DIGIKEY_COST" value=".49"/>
+</part>
+<part name="R8" library="resistor" deviceset="R-US_" device="R0603" value="1k">
+<attribute name="DIGIKEY" value="RMCF0603FT1K00CT-ND"/>
+<attribute name="DIGIKEY_COST" value=".04"/>
+</part>
 </parts>
 <sheets>
 <sheet>
@@ -6133,15 +6200,15 @@ the programming of the micro.</text>
 <attribute name="DIGIKEY_COST" x="187.96" y="182.88" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="SUPPLY9" gate="G$1" x="60.96" y="195.58"/>
-<instance part="R6" gate="G$1" x="167.64" y="124.46" rot="R180">
-<attribute name="DIGIKEY" x="167.64" y="124.46" size="1.778" layer="96" rot="R180" display="off"/>
-<attribute name="DIGIKEY_COST" x="167.64" y="124.46" size="1.778" layer="96" rot="R180" display="off"/>
+<instance part="R6" gate="G$1" x="180.34" y="124.46" rot="R180">
+<attribute name="DIGIKEY" x="180.34" y="124.46" size="1.778" layer="96" rot="R180" display="off"/>
+<attribute name="DIGIKEY_COST" x="180.34" y="124.46" size="1.778" layer="96" rot="R180" display="off"/>
 </instance>
-<instance part="R7" gate="G$1" x="180.34" y="116.84" rot="R270">
-<attribute name="DIGIKEY" x="180.34" y="116.84" size="1.778" layer="96" rot="R270" display="off"/>
-<attribute name="DIGIKEY_COST" x="180.34" y="116.84" size="1.778" layer="96" rot="R270" display="off"/>
+<instance part="R7" gate="G$1" x="187.96" y="116.84" rot="R270">
+<attribute name="DIGIKEY" x="187.96" y="116.84" size="1.778" layer="96" rot="R270" display="off"/>
+<attribute name="DIGIKEY_COST" x="187.96" y="116.84" size="1.778" layer="96" rot="R270" display="off"/>
 </instance>
-<instance part="SUPPLY10" gate="GND" x="180.34" y="106.68"/>
+<instance part="SUPPLY10" gate="GND" x="187.96" y="106.68"/>
 <instance part="R2" gate="G$1" x="78.74" y="81.28" rot="MR270">
 <attribute name="DIGIKEY" x="78.74" y="81.28" size="1.778" layer="96" rot="MR270" display="off"/>
 <attribute name="DIGIKEY_COST" x="78.74" y="81.28" size="1.778" layer="96" rot="MR270" display="off"/>
@@ -6160,17 +6227,15 @@ the programming of the micro.</text>
 <instance part="RESET" gate="G$1" x="43.18" y="114.3"/>
 <instance part="SUPPLY19" gate="GND" x="228.6" y="114.3"/>
 <instance part="SUPPLY21" gate="G$1" x="165.1" y="66.04"/>
-<instance part="R8" gate="G$1" x="228.6" y="124.46" rot="R90">
-<attribute name="DIGIKEY" x="228.6" y="124.46" size="1.778" layer="96" rot="R90" display="off"/>
-<attribute name="DIGIKEY_COST" x="228.6" y="124.46" size="1.778" layer="96" rot="R90" display="off"/>
-</instance>
 <instance part="R9" gate="G$1" x="238.76" y="132.08" rot="R180">
 <attribute name="DIGIKEY" x="238.76" y="132.08" size="1.778" layer="96" rot="R180" display="off"/>
 <attribute name="DIGIKEY_COST" x="238.76" y="132.08" size="1.778" layer="96" rot="R180" display="off"/>
 </instance>
-<instance part="T1" gate="G$1" x="76.2" y="60.96" smashed="yes">
+<instance part="Q2" gate="G$1" x="76.2" y="60.96" smashed="yes">
 <attribute name="NAME" x="81.28" y="58.42" size="1.778" layer="95"/>
 <attribute name="VALUE" x="81.28" y="60.96" size="1.778" layer="96"/>
+<attribute name="DIGIKEY" x="76.2" y="60.96" size="1.778" layer="96" display="off"/>
+<attribute name="DIGIKEY_COST" x="76.2" y="60.96" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="SUPPLY14" gate="GND" x="78.74" y="50.8"/>
 <instance part="R1" gate="G$1" x="63.5" y="60.96" rot="MR180">
@@ -6209,6 +6274,14 @@ the programming of the micro.</text>
 <attribute name="DIGIKEY_COST" x="106.68" y="132.08" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="SUPPLY22" gate="GND" x="243.84" y="35.56"/>
+<instance part="D1" gate="G$1" x="167.64" y="124.46">
+<attribute name="DIGIKEY" x="167.64" y="124.46" size="1.778" layer="96" display="off"/>
+<attribute name="DIGIKEY_COST" x="167.64" y="124.46" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="R8" gate="G$1" x="228.6" y="124.46" rot="MR270">
+<attribute name="DIGIKEY" x="228.6" y="124.46" size="1.778" layer="96" rot="MR270" display="off"/>
+<attribute name="DIGIKEY_COST" x="228.6" y="124.46" size="1.778" layer="96" rot="MR270" display="off"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -6245,7 +6318,7 @@ the programming of the micro.</text>
 <segment>
 <pinref part="R7" gate="G$1" pin="2"/>
 <pinref part="SUPPLY10" gate="GND" pin="GND"/>
-<wire x1="180.34" y1="111.76" x2="180.34" y2="109.22" width="0.1524" layer="91"/>
+<wire x1="187.96" y1="111.76" x2="187.96" y2="109.22" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="GND" gate="G$1" pin="TPI_PIN"/>
@@ -6259,12 +6332,12 @@ the programming of the micro.</text>
 <wire x1="50.8" y1="165.1" x2="50.8" y2="162.56" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="R8" gate="G$1" pin="1"/>
 <pinref part="SUPPLY19" gate="GND" pin="GND"/>
 <wire x1="228.6" y1="119.38" x2="228.6" y2="116.84" width="0.1524" layer="91"/>
+<pinref part="R8" gate="G$1" pin="2"/>
 </segment>
 <segment>
-<pinref part="T1" gate="G$1" pin="E"/>
+<pinref part="Q2" gate="G$1" pin="E"/>
 <pinref part="SUPPLY14" gate="GND" pin="GND"/>
 <wire x1="78.74" y1="55.88" x2="78.74" y2="53.34" width="0.1524" layer="91"/>
 </segment>
@@ -6409,12 +6482,12 @@ the programming of the micro.</text>
 <net name="BLINK" class="0">
 <segment>
 <pinref part="R6" gate="G$1" pin="1"/>
-<wire x1="172.72" y1="124.46" x2="180.34" y2="124.46" width="0.1524" layer="91"/>
+<wire x1="185.42" y1="124.46" x2="187.96" y2="124.46" width="0.1524" layer="91"/>
 <pinref part="R7" gate="G$1" pin="1"/>
-<wire x1="180.34" y1="124.46" x2="187.96" y2="124.46" width="0.1524" layer="91"/>
-<wire x1="180.34" y1="121.92" x2="180.34" y2="124.46" width="0.1524" layer="91"/>
-<junction x="180.34" y="124.46"/>
-<label x="187.96" y="124.46" size="1.778" layer="95" xref="yes"/>
+<wire x1="187.96" y1="124.46" x2="195.58" y2="124.46" width="0.1524" layer="91"/>
+<wire x1="187.96" y1="121.92" x2="187.96" y2="124.46" width="0.1524" layer="91"/>
+<junction x="187.96" y="124.46"/>
+<label x="195.58" y="124.46" size="1.778" layer="95" xref="yes"/>
 </segment>
 <segment>
 <pinref part="U2" gate="A" pin="PB1"/>
@@ -6432,13 +6505,6 @@ the programming of the micro.</text>
 <pinref part="X1" gate="-1" pin="1"/>
 <wire x1="101.6" y1="68.58" x2="119.38" y2="68.58" width="0.1524" layer="91"/>
 <pinref part="Q1" gate="G$1" pin="D"/>
-</segment>
-</net>
-<net name="N$1" class="0">
-<segment>
-<pinref part="X2" gate="-3" pin="1"/>
-<pinref part="R6" gate="G$1" pin="2"/>
-<wire x1="157.48" y1="124.46" x2="162.56" y2="124.46" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$2" class="0">
@@ -6464,7 +6530,7 @@ the programming of the micro.</text>
 <net name="N$5" class="0">
 <segment>
 <pinref part="Q1" gate="G$1" pin="G"/>
-<pinref part="T1" gate="G$1" pin="C"/>
+<pinref part="Q2" gate="G$1" pin="C"/>
 <wire x1="91.44" y1="73.66" x2="78.74" y2="73.66" width="0.1524" layer="91"/>
 <wire x1="78.74" y1="73.66" x2="78.74" y2="66.04" width="0.1524" layer="91"/>
 <pinref part="R2" gate="G$1" pin="2"/>
@@ -6475,7 +6541,7 @@ the programming of the micro.</text>
 <net name="N$6" class="0">
 <segment>
 <pinref part="R1" gate="G$1" pin="2"/>
-<pinref part="T1" gate="G$1" pin="B"/>
+<pinref part="Q2" gate="G$1" pin="B"/>
 <wire x1="68.58" y1="60.96" x2="73.66" y2="60.96" width="0.1524" layer="91"/>
 </segment>
 </net>
@@ -6517,8 +6583,9 @@ the programming of the micro.</text>
 </segment>
 <segment>
 <pinref part="C2" gate="G$1" pin="1"/>
+<wire x1="96.52" y1="139.7" x2="106.68" y2="139.7" width="0.1524" layer="91"/>
 <wire x1="106.68" y1="139.7" x2="106.68" y2="134.62" width="0.1524" layer="91"/>
-<label x="106.68" y="139.7" size="1.778" layer="95" rot="R180" xref="yes"/>
+<label x="96.52" y="139.7" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
 <pinref part="U3" gate="A" pin="VINA-"/>
@@ -6533,13 +6600,27 @@ the programming of the micro.</text>
 <label x="190.5" y="45.72" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
-<pinref part="R8" gate="G$1" pin="2"/>
 <wire x1="220.98" y1="132.08" x2="228.6" y2="132.08" width="0.1524" layer="91"/>
 <pinref part="R9" gate="G$1" pin="2"/>
 <wire x1="228.6" y1="132.08" x2="228.6" y2="129.54" width="0.1524" layer="91"/>
 <wire x1="233.68" y1="132.08" x2="228.6" y2="132.08" width="0.1524" layer="91"/>
 <junction x="228.6" y="132.08"/>
 <label x="220.98" y="132.08" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="R8" gate="G$1" pin="1"/>
+</segment>
+</net>
+<net name="N$1" class="0">
+<segment>
+<pinref part="X2" gate="-3" pin="1"/>
+<pinref part="D1" gate="G$1" pin="A"/>
+<wire x1="157.48" y1="124.46" x2="165.1" y2="124.46" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$4" class="0">
+<segment>
+<pinref part="D1" gate="G$1" pin="C"/>
+<pinref part="R6" gate="G$1" pin="2"/>
+<wire x1="170.18" y1="124.46" x2="175.26" y2="124.46" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
