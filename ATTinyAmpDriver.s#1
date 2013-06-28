@@ -6120,8 +6120,8 @@ type 0309, grid 2.5 mm</description>
 </part>
 <part name="SUPPLY22" library="supply2" deviceset="GND" device=""/>
 <part name="D1" library="Combined" deviceset="DIODE_0603" device="">
-<attribute name="DIGIKEY" value="CD1206-B260CT-ND"/>
-<attribute name="DIGIKEY_COST" value=".49"/>
+<attribute name="DIGIKEY" value="641-1002-1-ND"/>
+<attribute name="DIGIKEY_COST" value=".23"/>
 </part>
 <part name="R8" library="resistor" deviceset="R-US_" device="R0603" value="1k">
 <attribute name="DIGIKEY" value="RMCF0603FT1K00CT-ND"/>

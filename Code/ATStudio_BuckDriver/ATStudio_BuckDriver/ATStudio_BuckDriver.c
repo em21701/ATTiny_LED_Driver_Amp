@@ -23,8 +23,8 @@
 #define HYSTERESIS 10							//Hysterysis range
 #define BLINK 150								//Bright value
 
-volatile uint8_t ADC_LOW_VALUE;						//define ADC Lower Limit
-volatile uint8_t ADC_HIGH_VALUE;					//define ADC Upper Limit
+volatile uint8_t ADC_LOW_VALUE;					//define ADC Lower Limit
+volatile uint8_t ADC_HIGH_VALUE;				//define ADC Upper Limit
 
 volatile uint8_t PanicFlag;						//define panic flag
 
@@ -88,7 +88,7 @@ void setup()
 	ADCSRA |= (1<<ADATE);						//Auto Trigger
 */
 //	ADCSRA - ADEN | ADSC | ADATE | ADIF | ADIE | ADPS2 | ADPS1 | ADPS0
-	ADCSRA = 0b10101011;						//same as above in one operation
+	ADCSRA = 0b10101100;						//same as above in one operation
 
 	ADCSRA |= (1<<ADSC);						//Start Conversion
 
@@ -103,24 +103,37 @@ ISR(ADC_vect)
 	//issue. ISR must complete and OCR0A must updated and settle before
 	//the next conversion starts to get a good reading.
 
-	if (ADCL > ADC_PANIC_VALUE)
+	if (PINB & (1<<PINB1))					//if the blink input is high
 	{
-		OCR0A = 0;					//set PWM to 0
-		PanicFlag++;				//force the chip to end processing
-	}
-	else if (ADCL < ADC_LOW_VALUE)	//if current is below set point
-	{
-		OCR0A += 1;					//ramp up to the value
-	}
-	else if (ADCL > ADC_HIGH_VALUE)	//if current is above set point
-	{
-		OCR0A -= 2;					//lets ramp down a little faster than up
+		ADC_LOW_VALUE = BLINK;				//bright lower limit
+		ADC_HIGH_VALUE = BLINK + HYSTERESIS;//bright upper limit
 	}
 	else
 	{
-		//life is good do nothing
+		ADC_LOW_VALUE = LOW;				//normal lower limit
+		ADC_HIGH_VALUE = LOW + HYSTERESIS;  //normal upper limit
 	}
 
+	//if (ADCL > ADC_PANIC_VALUE)
+	//{
+		//OCR0A = 0;					//set PWM to 0
+		//PanicFlag++;				//force the chip to end processing
+	//}
+	//else if (ADCL < ADC_LOW_VALUE)	//if current is below set point
+	//{
+		//OCR0A += 1;					//ramp up to the value
+	//}
+	//else if (ADCL > ADC_HIGH_VALUE)	//if current is above set point
+	//{
+		//OCR0A -= 2;					//lets ramp down a little faster than up
+	//}
+	//else
+	//{
+		////life is good do nothing
+	//}
+	
+	//OCR0A = ADC_LOW_VALUE;				//blink debug code
+	
 
 }
 
@@ -130,16 +143,7 @@ int main ()
 
 	while(PanicFlag < 1)						//if PanicFlag is greater than 0
 	{											//fail out and stop processor.
-		if (PINB & (1<<PINB1))					//if the blink input is high
-		{
-			ADC_LOW_VALUE = BLINK;				//bright lower limit
-			ADC_HIGH_VALUE = BLINK + HYSTERESIS;//bright upper limit
-		}
-		else
-		{
-			ADC_LOW_VALUE = LOW;				//normal lower limit
-			ADC_HIGH_VALUE = LOW + HYSTERESIS;  //normal upper limit
-		}
+		OCR0A = 50;								//simple PWM output for circuit debug
 	}
 
 	return 0;
