@@ -6120,8 +6120,8 @@ type 0309, grid 2.5 mm</description>
 </part>
 <part name="SUPPLY22" library="supply2" deviceset="GND" device=""/>
 <part name="D1" library="Combined" deviceset="DIODE_0603" device="">
-<attribute name="DIGIKEY" value="CD1206-B260CT-ND"/>
-<attribute name="DIGIKEY_COST" value=".49"/>
+<attribute name="DIGIKEY" value="641-1002-1-ND"/>
+<attribute name="DIGIKEY_COST" value=".23"/>
 </part>
 <part name="R8" library="resistor" deviceset="R-US_" device="R0603" value="1k">
 <attribute name="DIGIKEY" value="RMCF0603FT1K00CT-ND"/>
@@ -6271,9 +6271,10 @@ the programming of the micro.</text>
 <attribute name="DIGIKEY_COST" x="106.68" y="132.08" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="SUPPLY22" gate="GND" x="243.84" y="35.56"/>
-<instance part="D1" gate="G$1" x="167.64" y="124.46">
+<instance part="D1" gate="G$1" x="167.64" y="124.46" smashed="yes">
 <attribute name="DIGIKEY" x="167.64" y="124.46" size="1.778" layer="96" display="off"/>
 <attribute name="DIGIKEY_COST" x="167.64" y="124.46" size="1.778" layer="96" display="off"/>
+<attribute name="NAME" x="170.18" y="124.9426" size="1.778" layer="95"/>
 </instance>
 <instance part="R8" gate="G$1" x="228.6" y="124.46" rot="MR270">
 <attribute name="DIGIKEY" x="228.6" y="124.46" size="1.778" layer="96" rot="MR270" display="off"/>
