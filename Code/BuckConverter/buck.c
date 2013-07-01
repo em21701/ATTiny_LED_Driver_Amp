@@ -18,10 +18,10 @@
 #include <avr/interrupt.h>  //interrupt service routines
 #include <stdlib.h>			//standard c functions
 
-#define ADC_PANIC_VALUE 250						//bail out something went horribly wrong
+#define ADC_PANIC_VALUE 160						//bail out something went horribly wrong
 #define LOW 30									//ADC Low value
 #define HYSTERESIS 10							//Hysterysis range
-#define BLINK 150								//Bright value
+#define BLINK 100								//Bright value
 
 volatile uint8_t ADC_LOW_VALUE;					//define ADC Lower Limit
 volatile uint8_t ADC_HIGH_VALUE;				//define ADC Upper Limit
@@ -64,7 +64,7 @@ void setup()
 	DDRB = 0b0001;								//pin1 out all others in
 	PUEB = 0b0001;								//enable internal pullup
 	PORTB = 0;									//set pins to high impedance
-	OCR0A = 10;									//start PWM at a low value
+	//OCR0A = 10;									//start PWM at a low value
 	OCR0B = 0;
 
 	//ADC SETUP
@@ -80,15 +80,16 @@ void setup()
 	DIDR0 |= (1<<ADC2D);						//Disable digital input
 /*
 	ADCSRA |= (1<<ADEN);						//enable ADC
-	ADCSRA &= ~(1<<ADPS2);						//Set prescaler to div 4
-	ADCSRA |= ((1<<ADPS1) |						//125kHz @ 1MHz CPU
-			 (1<<ADPS0));						//required range 50-200kHz
+	ADCSRA &= ~(1<<ADPS1);						//Set prescaler to div 32
+	ADCSRA |= ((1<<ADPS2) |						//31.25kHz @ 1MHz CPU
+			 (1<<ADPS0));						//trial and error has the least amount
+			 	 	 	 	 	 	 	 	 	//of flicker here
 
 	ADCSRA |= (1<<ADIE);						//Enable ADC Interrupt
 	ADCSRA |= (1<<ADATE);						//Auto Trigger
 */
 //	ADCSRA - ADEN | ADSC | ADATE | ADIF | ADIE | ADPS2 | ADPS1 | ADPS0
-	ADCSRA = 0b10101100;						//same as above in one operation
+	ADCSRA = 0b10101101;						//same as above in one operation
 
 	ADCSRA |= (1<<ADSC);						//Start Conversion
 
@@ -103,10 +104,12 @@ ISR(ADC_vect)
 	//issue. ISR must complete and OCR0A must updated and settle before
 	//the next conversion starts to get a good reading.
 
+
 	if (PINB & (1<<PINB1))					//if the blink input is high
 	{
 		ADC_LOW_VALUE = BLINK;				//bright lower limit
 		ADC_HIGH_VALUE = BLINK + HYSTERESIS;//bright upper limit
+
 	}
 	else
 	{
@@ -121,11 +124,21 @@ ISR(ADC_vect)
 	}
 	else if (ADCL < ADC_LOW_VALUE)	//if current is below set point
 	{
-		OCR0A += 1;					//ramp up to the value
+		if ((ADC_LOW_VALUE - ADCL) > 30) //if it is way below
+		{
+			OCR0A += 10;			//ramp up to the value quickly
+		}
+		else						//otherwise
+		{
+			OCR0A += 1;				//lets go slowly to avoid overshoot
+		}
 	}
 	else if (ADCL > ADC_HIGH_VALUE)	//if current is above set point
 	{
-		OCR0A -= 2;					//lets ramp down a little faster than up
+		OCR0A -= 2;					//lets go down slowly
+									//rapid drops led to flicker so down slowly
+									//is the best plan
+
 	}
 	else
 	{
