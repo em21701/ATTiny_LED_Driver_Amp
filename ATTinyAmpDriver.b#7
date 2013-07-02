@@ -1790,7 +1790,7 @@ design rules under a new name.</description>
 <attribute name="NAME" x="16.129" y="2.159" size="0.8128" layer="25" rot="R180"/>
 <attribute name="VALUE" x="14.3764" y="0.6858" size="1.27" layer="27"/>
 </element>
-<element name="R3" library="resistor" package="R0603" value="110" x="23.5966" y="13.1572" smashed="yes" rot="R180">
+<element name="R3" library="resistor" package="R0603" value="3.9k" x="23.5966" y="13.1572" smashed="yes" rot="R180">
 <attribute name="DIGIKEY_COST" value=".04" x="23.5966" y="13.1572" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="DIGIKEY" value="RMCF0603FT10K0CT-ND" x="23.5966" y="13.1572" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="NAME" x="21.7932" y="14.3002" size="0.8128" layer="25" rot="R180"/>
@@ -1820,7 +1820,7 @@ design rules under a new name.</description>
 <attribute name="DIGIKEY" value="MCP6L2T-E/SNCT-ND" x="18.0594" y="9.5504" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="DIGIKEY_COST" value=".64" x="18.0594" y="9.5504" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
-<element name="R4" library="resistor" package="R0603" value="110" x="24.7396" y="10.6426" smashed="yes" rot="R270">
+<element name="R4" library="resistor" package="R0603" value="3.9k" x="24.7396" y="10.6426" smashed="yes" rot="R270">
 <attribute name="DIGIKEY_COST" value=".04" x="24.7396" y="10.6426" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="DIGIKEY" value="RMCF0603FT10K0CT-ND" x="24.7396" y="10.6426" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="NAME" x="25.8318" y="11.3284" size="0.8128" layer="25"/>

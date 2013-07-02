@@ -1834,8 +1834,8 @@ design rules under a new name.</description>
 </element>
 <element name="D1" library="Combined" package="D0603" value="DIODE_0603" x="6.2484" y="10.2108" smashed="yes" rot="R90">
 <attribute name="NAME" x="7.0358" y="12.9286" size="0.8128" layer="25" rot="R180"/>
-<attribute name="DIGIKEY" value="CD1206-B260CT-ND" x="6.2484" y="10.2108" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="DIGIKEY_COST" value=".49" x="6.2484" y="10.2108" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="DIGIKEY" value="641-1002-1-ND" x="6.2484" y="10.2108" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="DIGIKEY_COST" value=".23" x="6.2484" y="10.2108" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="R8" library="resistor" package="R0603" value="1k" x="16.0528" y="13.0048" smashed="yes">
 <attribute name="DIGIKEY_COST" value=".04" x="16.0528" y="13.0048" size="1.778" layer="27" display="off"/>
