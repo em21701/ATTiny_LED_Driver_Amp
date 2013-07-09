@@ -6087,8 +6087,8 @@ type 0309, grid 2.5 mm</description>
 <attribute name="DIGIKEY" value="RMCF0603FT10K0CT-ND"/>
 <attribute name="DIGIKEY_COST" value=".04"/>
 </part>
-<part name="R3" library="resistor" deviceset="R-US_" device="R0603" value="3.9k">
-<attribute name="DIGIKEY" value="RMCF0603FT10K0CT-ND"/>
+<part name="R3" library="resistor" deviceset="R-US_" device="R0603" value="39.2k">
+<attribute name="DIGIKEY" value="RMCF0603FT39K2CT-ND"/>
 <attribute name="DIGIKEY_COST" value=".04"/>
 </part>
 <part name="C4" library="resistor" deviceset="C-US" device="C0603" value=".1u">
@@ -6110,8 +6110,8 @@ type 0309, grid 2.5 mm</description>
 <attribute name="DIGIKEY" value="MCP6L2T-E/SNCT-ND"/>
 <attribute name="DIGIKEY_COST" value=".64"/>
 </part>
-<part name="R4" library="resistor" deviceset="R-US_" device="R0603" value="3.9k">
-<attribute name="DIGIKEY" value="RMCF0603FT10K0CT-ND"/>
+<part name="R4" library="resistor" deviceset="R-US_" device="R0603" value="39.2k">
+<attribute name="DIGIKEY" value="RMCF0603FT39K2CT-ND"/>
 <attribute name="DIGIKEY_COST" value=".04"/>
 </part>
 <part name="C2" library="resistor" deviceset="C-US" device="C0603" value=".1u">
@@ -6245,11 +6245,11 @@ f = 400Hz (~10% 3.77kHz PWM)</text>
 <attribute name="DIGIKEY" x="165.1" y="124.46" size="1.778" layer="96" rot="MR180" display="off"/>
 <attribute name="DIGIKEY_COST" x="165.1" y="124.46" size="1.778" layer="96" rot="MR180" display="off"/>
 </instance>
-<instance part="C4" gate="G$1" x="185.42" y="116.84">
-<attribute name="DIGIKEY" x="185.42" y="116.84" size="1.778" layer="96" display="off"/>
-<attribute name="DIGIKEY_COST" x="185.42" y="116.84" size="1.778" layer="96" display="off"/>
+<instance part="C4" gate="G$1" x="190.5" y="116.84">
+<attribute name="DIGIKEY" x="190.5" y="116.84" size="1.778" layer="96" display="off"/>
+<attribute name="DIGIKEY_COST" x="190.5" y="116.84" size="1.778" layer="96" display="off"/>
 </instance>
-<instance part="SUPPLY12" gate="GND" x="185.42" y="106.68"/>
+<instance part="SUPPLY12" gate="GND" x="190.5" y="106.68"/>
 <instance part="C6" gate="G$1" x="157.48" y="175.26">
 <attribute name="DIGIKEY" x="157.48" y="175.26" size="1.778" layer="96" display="off"/>
 <attribute name="DIGIKEY_COST" x="157.48" y="175.26" size="1.778" layer="96" display="off"/>
@@ -6344,8 +6344,8 @@ f = 400Hz (~10% 3.77kHz PWM)</text>
 <segment>
 <pinref part="C4" gate="G$1" pin="2"/>
 <pinref part="SUPPLY12" gate="GND" pin="GND"/>
-<wire x1="185.42" y1="111.76" x2="185.42" y2="109.22" width="0.1524" layer="91"/>
-<wire x1="185.42" y1="109.22" x2="185.42" y2="106.68" width="0.1524" layer="91"/>
+<wire x1="190.5" y1="111.76" x2="190.5" y2="109.22" width="0.1524" layer="91"/>
+<wire x1="190.5" y1="109.22" x2="190.5" y2="106.68" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="SUPPLY13" gate="GND" pin="GND"/>
@@ -6440,9 +6440,9 @@ f = 400Hz (~10% 3.77kHz PWM)</text>
 <label x="119.38" y="53.34" size="1.778" layer="95" xref="yes"/>
 </segment>
 <segment>
-<pinref part="R3" gate="G$1" pin="1"/>
-<wire x1="160.02" y1="124.46" x2="157.48" y2="124.46" width="0.1524" layer="91"/>
-<label x="157.48" y="124.46" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="U3" gate="A" pin="VINA+"/>
+<wire x1="193.04" y1="50.8" x2="190.5" y2="50.8" width="0.1524" layer="91"/>
+<label x="190.5" y="50.8" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="MEASURE" class="0">
@@ -6452,14 +6452,20 @@ f = 400Hz (~10% 3.77kHz PWM)</text>
 <pinref part="U2" gate="A" pin="PB2"/>
 </segment>
 <segment>
-<pinref part="R9" gate="G$1" pin="1"/>
-<wire x1="243.84" y1="132.08" x2="248.92" y2="132.08" width="0.1524" layer="91"/>
-<label x="248.92" y="132.08" size="1.778" layer="95" xref="yes"/>
-</segment>
-<segment>
 <pinref part="U3" gate="A" pin="VOUTB"/>
 <wire x1="233.68" y1="50.8" x2="241.3" y2="50.8" width="0.1524" layer="91"/>
 <label x="241.3" y="50.8" size="1.778" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="C2" gate="G$1" pin="1"/>
+<wire x1="172.72" y1="137.16" x2="172.72" y2="142.24" width="0.1524" layer="91"/>
+<wire x1="172.72" y1="142.24" x2="162.56" y2="142.24" width="0.1524" layer="91"/>
+<label x="162.56" y="142.24" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="U3" gate="A" pin="VINB-"/>
+<wire x1="193.04" y1="45.72" x2="182.88" y2="45.72" width="0.1524" layer="91"/>
+<label x="182.88" y="45.72" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="MOSFET" class="0">
@@ -6545,20 +6551,6 @@ f = 400Hz (~10% 3.77kHz PWM)</text>
 <wire x1="68.58" y1="60.96" x2="73.66" y2="60.96" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="INA+" class="0">
-<segment>
-<pinref part="C4" gate="G$1" pin="1"/>
-<wire x1="185.42" y1="119.38" x2="185.42" y2="124.46" width="0.1524" layer="91"/>
-<pinref part="R4" gate="G$1" pin="2"/>
-<wire x1="185.42" y1="124.46" x2="193.04" y2="124.46" width="0.1524" layer="91"/>
-<label x="193.04" y="124.46" size="1.778" layer="95" xref="yes"/>
-</segment>
-<segment>
-<pinref part="U3" gate="A" pin="VINA+"/>
-<wire x1="193.04" y1="50.8" x2="180.34" y2="50.8" width="0.1524" layer="91"/>
-<label x="180.34" y="50.8" size="1.778" layer="95" rot="R180" xref="yes"/>
-</segment>
-</net>
 <net name="N$8" class="0">
 <segment>
 <pinref part="R3" gate="G$1" pin="2"/>
@@ -6577,36 +6569,14 @@ f = 400Hz (~10% 3.77kHz PWM)</text>
 <label x="241.3" y="58.42" size="1.778" layer="95" xref="yes"/>
 </segment>
 <segment>
-<pinref part="U3" gate="A" pin="VINB+"/>
-<wire x1="193.04" y1="43.18" x2="180.34" y2="43.18" width="0.1524" layer="91"/>
-<label x="180.34" y="43.18" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="R9" gate="G$1" pin="1"/>
+<wire x1="243.84" y1="132.08" x2="251.46" y2="132.08" width="0.1524" layer="91"/>
+<label x="251.46" y="132.08" size="1.778" layer="95" xref="yes"/>
 </segment>
 <segment>
-<pinref part="C2" gate="G$1" pin="1"/>
-<wire x1="162.56" y1="142.24" x2="172.72" y2="142.24" width="0.1524" layer="91"/>
-<wire x1="172.72" y1="142.24" x2="172.72" y2="137.16" width="0.1524" layer="91"/>
-<label x="162.56" y="142.24" size="1.778" layer="95" rot="R180" xref="yes"/>
-</segment>
-<segment>
-<pinref part="U3" gate="A" pin="VINA-"/>
-<wire x1="193.04" y1="53.34" x2="190.5" y2="53.34" width="0.1524" layer="91"/>
-<label x="190.5" y="53.34" size="1.778" layer="95" rot="R180" xref="yes"/>
-</segment>
-</net>
-<net name="VINB-" class="0">
-<segment>
-<pinref part="U3" gate="A" pin="VINB-"/>
-<wire x1="193.04" y1="45.72" x2="190.5" y2="45.72" width="0.1524" layer="91"/>
-<label x="190.5" y="45.72" size="1.778" layer="95" rot="R180" xref="yes"/>
-</segment>
-<segment>
-<wire x1="220.98" y1="132.08" x2="228.6" y2="132.08" width="0.1524" layer="91"/>
-<pinref part="R9" gate="G$1" pin="2"/>
-<wire x1="228.6" y1="132.08" x2="228.6" y2="129.54" width="0.1524" layer="91"/>
-<wire x1="233.68" y1="132.08" x2="228.6" y2="132.08" width="0.1524" layer="91"/>
-<junction x="228.6" y="132.08"/>
-<label x="220.98" y="132.08" size="1.778" layer="95" rot="R180" xref="yes"/>
-<pinref part="R8" gate="G$1" pin="1"/>
+<pinref part="R3" gate="G$1" pin="1"/>
+<wire x1="160.02" y1="124.46" x2="154.94" y2="124.46" width="0.1524" layer="91"/>
+<label x="154.94" y="124.46" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="N$1" class="0">
@@ -6621,6 +6591,38 @@ f = 400Hz (~10% 3.77kHz PWM)</text>
 <pinref part="D1" gate="G$1" pin="C"/>
 <pinref part="R6" gate="G$1" pin="2"/>
 <wire x1="104.14" y1="127" x2="109.22" y2="127" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="INB+" class="0">
+<segment>
+<pinref part="R4" gate="G$1" pin="2"/>
+<pinref part="C4" gate="G$1" pin="1"/>
+<wire x1="185.42" y1="124.46" x2="190.5" y2="124.46" width="0.1524" layer="91"/>
+<wire x1="190.5" y1="124.46" x2="190.5" y2="119.38" width="0.1524" layer="91"/>
+<wire x1="190.5" y1="124.46" x2="195.58" y2="124.46" width="0.1524" layer="91"/>
+<junction x="190.5" y="124.46"/>
+<label x="195.58" y="124.46" size="1.778" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="U3" gate="A" pin="VINB+"/>
+<wire x1="193.04" y1="43.18" x2="190.5" y2="43.18" width="0.1524" layer="91"/>
+<label x="190.5" y="43.18" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="INA-" class="0">
+<segment>
+<pinref part="U3" gate="A" pin="VINA-"/>
+<wire x1="193.04" y1="53.34" x2="182.88" y2="53.34" width="0.1524" layer="91"/>
+<label x="182.88" y="53.34" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="R9" gate="G$1" pin="2"/>
+<wire x1="233.68" y1="132.08" x2="228.6" y2="132.08" width="0.1524" layer="91"/>
+<pinref part="R8" gate="G$1" pin="1"/>
+<wire x1="228.6" y1="132.08" x2="218.44" y2="132.08" width="0.1524" layer="91"/>
+<wire x1="228.6" y1="129.54" x2="228.6" y2="132.08" width="0.1524" layer="91"/>
+<junction x="228.6" y="132.08"/>
+<label x="218.44" y="132.08" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 </nets>

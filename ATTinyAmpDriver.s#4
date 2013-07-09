@@ -6088,7 +6088,7 @@ type 0309, grid 2.5 mm</description>
 <attribute name="DIGIKEY_COST" value=".04"/>
 </part>
 <part name="R3" library="resistor" deviceset="R-US_" device="R0603" value="3.9k">
-<attribute name="DIGIKEY" value="RMCF0603FT10K0CT-ND"/>
+<attribute name="DIGIKEY" value="RMCF0603FT3K90CT-ND"/>
 <attribute name="DIGIKEY_COST" value=".04"/>
 </part>
 <part name="C4" library="resistor" deviceset="C-US" device="C0603" value=".1u">
@@ -6111,7 +6111,7 @@ type 0309, grid 2.5 mm</description>
 <attribute name="DIGIKEY_COST" value=".64"/>
 </part>
 <part name="R4" library="resistor" deviceset="R-US_" device="R0603" value="3.9k">
-<attribute name="DIGIKEY" value="RMCF0603FT10K0CT-ND"/>
+<attribute name="DIGIKEY" value="RMCF0603FT3K90CT-ND"/>
 <attribute name="DIGIKEY_COST" value=".04"/>
 </part>
 <part name="C2" library="resistor" deviceset="C-US" device="C0603" value=".1u">

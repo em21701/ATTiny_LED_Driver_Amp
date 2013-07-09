@@ -6023,9 +6023,9 @@ type 0309, grid 2.5 mm</description>
 <part name="SUPPLY1" library="supply2" deviceset="+14V" device=""/>
 <part name="SUPPLY2" library="supply2" deviceset="GND" device=""/>
 <part name="SUPPLY3" library="supply2" deviceset="VCC" device=""/>
-<part name="C3" library="resistor" deviceset="C-US" device="C0805" value="10u">
-<attribute name="DIGIKEY" value="445-7534-1-ND"/>
-<attribute name="DIGIKEY_COST" value=".10"/>
+<part name="C3" library="resistor" deviceset="C-US" device="C1206" value="47u">
+<attribute name="DIGIKEY" value="399-5508-1-ND"/>
+<attribute name="DIGIKEY_COST" value=".67"/>
 </part>
 <part name="SUPPLY4" library="supply2" deviceset="GND" device=""/>
 <part name="SUPPLY5" library="supply2" deviceset="GND" device=""/>
