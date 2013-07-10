@@ -20,11 +20,21 @@
 
 #define ADC_PANIC_VALUE 200						//bail out something went horribly wrong
 #define LOW 30									//ADC Low value
-#define HYSTERESIS 10							//Hysterysis range
+#define HYSTERESIS 10							//Hysteresis range
 #define BLINK 100								//Bright value
+
+#define TIMING_DIV 30							//Timing divider 30
 
 volatile uint8_t ADC_LOW_VALUE;					//define ADC Lower Limit
 volatile uint8_t ADC_HIGH_VALUE;				//define ADC Upper Limit
+
+volatile uint8_t LoopCounterLow;				//loop counter for patterns low bit
+volatile uint8_t LoopCounterHigh;				//loop counter for patterns high bit
+
+//volatile uint16_t LoopCounter;					//16 bit loop counter
+
+volatile uint8_t TimingCounter;					//Time counter
+												//approx 250ms = 31.25kHz/255/30
 
 volatile uint8_t PanicFlag;						//define panic flag
 
@@ -109,14 +119,47 @@ ISR(ADC_vect)
 
 	if (PINB & (1<<PINB1))					//if the blink input is high
 	{
-		ADC_LOW_VALUE = BLINK;				//bright lower limit
-		ADC_HIGH_VALUE = BLINK + HYSTERESIS;//bright upper limit
+		LoopCounterLow++;						//Increment Low byte counter
+		if (LoopCounterLow > 255)
+		{
+			LoopCounterHigh++;					//Increment High byte counter
+			LoopCounterLow = 0;					//reset low byte
+		}
+		if (LoopCounterHigh > TIMING_DIV)
+		{
+			TimingCounter++;					//Increment timing counter
+			LoopCounterHigh = 0;				//reset High byte
+			LoopCounterLow = 0;					//low byte should be 0 but reset anyway
+		}
+		//if (LoopCounter > TIMING_DIV)
+		//{
+			//TimingCounter++;
+		//}
+//
+		switch (TimingCounter)
+		{
+			case 2:
+			case 4:
+			case 6:
+				ADC_LOW_VALUE = LOW;
+				ADC_HIGH_VALUE = LOW + HYSTERESIS;
+				break;
 
+			case 255:
+				TimingCounter = 0;
+				break;
+			default:
+				ADC_LOW_VALUE = BLINK;				//bright lower limit
+				ADC_HIGH_VALUE = BLINK + HYSTERESIS;//bright upper limit
+		 }
 	}
-	else
+	else									//blink input low
 	{
 		ADC_LOW_VALUE = LOW;				//normal lower limit
 		ADC_HIGH_VALUE = LOW + HYSTERESIS;  //normal upper limit
+		TimingCounter=0;
+		LoopCounterLow = 0;
+		LoopCounterHigh = 0;
 	}
 
 	if (ADCL > ADC_PANIC_VALUE)
@@ -128,7 +171,7 @@ ISR(ADC_vect)
 	{
 		if ((ADC_LOW_VALUE - ADCL) > 30) 	//if it is way below
 		{
-			OCR0A += 10;					//ramp up to the value quickly
+			OCR0A += 5;						//ramp up to the value quickly
 		}
 		else								//otherwise
 		{
