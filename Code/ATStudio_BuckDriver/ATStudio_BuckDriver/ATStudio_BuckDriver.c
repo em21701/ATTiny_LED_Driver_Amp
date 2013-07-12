@@ -18,18 +18,31 @@
 #include <avr/interrupt.h>  //interrupt service routines
 #include <stdlib.h>			//standard c functions
 
-#define ADC_PANIC_VALUE 200						//bail out something went horribly wrong
+#define ADC_PANIC_VALUE 225						//bail out something went horribly wrong
 #define LOW 30									//ADC Low value
 #define HYSTERESIS 10							//Hysterysis range
-#define BLINK 100								//Bright value
+#define BLINK 75								//Bright value
+#define PANIC_COUNT 50							//number of cycles before we should bail out
+#define ADC_DIVIDER 3							//number of cycles PWM value is allowed 
+												//to settle before a reading it taken
 
 volatile uint8_t ADC_LOW_VALUE;					//define ADC Lower Limit
 volatile uint8_t ADC_HIGH_VALUE;				//define ADC Upper Limit
 
 volatile uint8_t PanicFlag;						//define panic flag
 
+volatile uint8_t ADC_Div;						//Secondary ADC Divider
+												//to minimize flicker ADC had to be slower 
+												//than 30kHz but to maximize efficiency and 
+												//component sizes PWM should be as fast as possible
+
 void setup()
 {
+	CCP = 0xD8;									//enable protected register change
+	// CLKPSR = 0000 -> 0
+	// CLKPSR = 0001 -> DIV 2
+	// CLKPSR = 0010 -> DIV 4
+	// CLKPSR = 0011 -> DIV 8 (default)	
 	CLKPSR = 0x0000;							//CPU prescaler to 0 = 8MHz
 
 	PanicFlag = 0;								//set panic flag to false
@@ -83,11 +96,6 @@ void setup()
 	DIDR0 |= (1<<ADC2D);						//Disable digital input
 /*
 	ADEN = 1									//enable ADC
-
-	ADPS1 = 0									//Set prescaler to div 32
-	ADPS0 & ADPS2 = 1							//31.25kHz @ 1MHz CPU
-			 									//trial and error has shown the
-			 	 	 	 	 	 	 	 	 	//least amount of flicker here
 														 
 	//8MHZ CPU div 128 (MAX) = 62.5kHz
 	//ADPS = 111 -> 128
@@ -99,7 +107,7 @@ void setup()
 
 	ADCSRA - ADEN | ADSC | ADATE | ADIF | ADIE | ADPS2 | ADPS1 | ADPS0
 */
-	ADCSRA = 0b10101101;
+	ADCSRA = 0b10101111;
 
 	ADCSRA |= (1<<ADSC);						//Start Conversion
 
@@ -124,35 +132,41 @@ ISR(ADC_vect)
 		ADC_LOW_VALUE = LOW;				//normal lower limit
 		ADC_HIGH_VALUE = LOW + HYSTERESIS;  //normal upper limit
 	}
-
-	if (ADCL > ADC_PANIC_VALUE)
+	if (ADC_Div > ADC_DIVIDER)
 	{
-		OCR0A = 0;							//set PWM to 0
-		PanicFlag++;						//force the chip to end processing
-	}
-	else if (ADCL < ADC_LOW_VALUE)			//if current is below set point
-	{
-		if ((ADC_LOW_VALUE - ADCL) > 30) 	//if it is way below
+		if (ADCL > ADC_PANIC_VALUE)
 		{
-			OCR0A += 10;					//ramp up to the value quickly
+			OCR0A -= 1;							//drop PWM a bit
+			PanicFlag++;						//increment panic counter
 		}
-		else								//otherwise
+		else if (ADCL < ADC_LOW_VALUE)			//if current is below set point
 		{
-			OCR0A += 1;						//lets go slowly to avoid overshoot
+			if ((ADC_LOW_VALUE - ADCL) > 30) 	//if it is way below
+			{
+				OCR0A += 10;					//ramp up to the value quickly
+			}
+			else								//otherwise
+			{
+				OCR0A += 1;						//lets go slowly to avoid overshoot
+			}
+			PanicFlag = 0;						//no need to panic
 		}
-	}
-	else if (ADCL > ADC_HIGH_VALUE)			//if current is above set point
-	{
-		OCR0A -= 2;							//lets go down slowly
-											//rapid drops lead to flicker so
-											//down slowly is the best plan
-
+		else if (ADCL > ADC_HIGH_VALUE)			//if current is above set point
+		{
+			OCR0A -= 1;							//lets go down slowly
+												//rapid drops lead to flicker
+		}
+		else
+		{
+			//life is good do nothing
+			PanicFlag = 0;						//any reason to panic is gone
+		}
+		ADC_Div = 0;
 	}
 	else
 	{
-		//life is good do nothing
+		ADC_Div++;
 	}
-
 
 }
 
@@ -160,11 +174,11 @@ int main ()
 {
 	setup();									//Setup chip;
 
-	while(PanicFlag < 1)						//if PanicFlag is greater than 0
+	while(PanicFlag < PANIC_COUNT)				//if PanicFlag is greater than PANIC_COUNT
 	{											//fail out and stop processor.
 
 	}
-
+	OCR0A = 0;									//turn off pwm before bailing out
 	return 0;
 }
 
