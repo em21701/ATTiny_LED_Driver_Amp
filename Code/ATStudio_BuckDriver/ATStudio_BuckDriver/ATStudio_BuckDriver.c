@@ -12,7 +12,7 @@
  */
 
 #define __AVR_ATtiny5__		//chip definition
-#define F_CPU 1000000UL		//cpu frequency 1MHz
+#define F_CPU 8000000UL		//cpu frequency 8MHz
 
 #include <avr/io.h>			//AVR chip specific defs
 #include <avr/interrupt.h>  //interrupt service routines
@@ -30,6 +30,7 @@ volatile uint8_t PanicFlag;						//define panic flag
 
 void setup()
 {
+	CLKPSR = 0x0000;							//CPU prescaler to 0 = 8MHz
 
 	PanicFlag = 0;								//set panic flag to false
 	sei();										//turn on interrupts
@@ -87,6 +88,11 @@ void setup()
 	ADPS0 & ADPS2 = 1							//31.25kHz @ 1MHz CPU
 			 									//trial and error has shown the
 			 	 	 	 	 	 	 	 	 	//least amount of flicker here
+														 
+	//8MHZ CPU div 128 (MAX) = 62.5kHz
+	//ADPS = 111 -> 128
+	//ADPS = 110 -> 64
+	//ADPS = 101 -> 32
 
 	ADIE = 1									//Enable ADC Interrupt
 	ADATE = 1									//Auto Trigger
