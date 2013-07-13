@@ -123,7 +123,7 @@ LOAD /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a
 .rela.plt
  *(.rela.plt)
 
-.text           0x0000000000000000      0x1da
+.text           0x0000000000000000      0x1d0
  *(.vectors)
  .vectors       0x0000000000000000       0x16 /usr/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avrtiny/crttn5.o
                 0x0000000000000000                __vectors
@@ -187,42 +187,42 @@ LOAD /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a
                 0x0000000000000036                __vector_9
                 0x0000000000000036                __vector_2
                 0x0000000000000036                __vector_8
- .text          0x0000000000000038      0x188 ./buck.o
+ .text          0x0000000000000038      0x17e ./buck.o
                 0x0000000000000038                setup
                 0x000000000000008a                __vector_10
- .text          0x00000000000001c0        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
- .text          0x00000000000001c0        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_clear_bss.o)
-                0x00000000000001c0                . = ALIGN (0x2)
+ .text          0x00000000000001b6        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
+ .text          0x00000000000001b6        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_clear_bss.o)
+                0x00000000000001b6                . = ALIGN (0x2)
  *(.text.*)
- .text.startup  0x00000000000001c0       0x16 ./buck.o
-                0x00000000000001c0                main
+ .text.startup  0x00000000000001b6       0x16 ./buck.o
+                0x00000000000001b6                main
  .text.libgcc.mul
-                0x00000000000001d6        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
+                0x00000000000001cc        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
  .text.libgcc.div
-                0x00000000000001d6        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
+                0x00000000000001cc        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
  .text.libgcc.prologue
-                0x00000000000001d6        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
- .text.libgcc   0x00000000000001d6        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
+                0x00000000000001cc        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
+ .text.libgcc   0x00000000000001cc        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
  .text.libgcc.builtins
-                0x00000000000001d6        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
+                0x00000000000001cc        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
  .text.libgcc.fmul
-                0x00000000000001d6        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
+                0x00000000000001cc        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
  .text.libgcc.mul
-                0x00000000000001d6        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_clear_bss.o)
+                0x00000000000001cc        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_clear_bss.o)
  .text.libgcc.div
-                0x00000000000001d6        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_clear_bss.o)
+                0x00000000000001cc        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_clear_bss.o)
  .text.libgcc.prologue
-                0x00000000000001d6        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_clear_bss.o)
- .text.libgcc   0x00000000000001d6        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_clear_bss.o)
+                0x00000000000001cc        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00000000000001cc        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_clear_bss.o)
  .text.libgcc.builtins
-                0x00000000000001d6        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_clear_bss.o)
+                0x00000000000001cc        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_clear_bss.o)
  .text.libgcc.fmul
-                0x00000000000001d6        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_clear_bss.o)
-                0x00000000000001d6                . = ALIGN (0x2)
+                0x00000000000001cc        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_clear_bss.o)
+                0x00000000000001cc                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000000000001d6        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
-                0x00000000000001d6                exit
-                0x00000000000001d6                _exit
+ .fini9         0x00000000000001cc        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
+                0x00000000000001cc                exit
+                0x00000000000001cc                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -241,11 +241,11 @@ LOAD /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000000000001d6        0x4 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
+ .fini0         0x00000000000001cc        0x4 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
  *(.fini0)
-                0x00000000000001da                _etext = .
+                0x00000000000001d0                _etext = .
 
-.data           0x0000000000800040        0x0 load address 0x00000000000001da
+.data           0x0000000000800040        0x0 load address 0x00000000000001d0
                 0x0000000000800040                PROVIDE (__data_start, .)
  *(.data)
  .data          0x0000000000800040        0x0 /usr/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avrtiny/crttn5.o
@@ -278,8 +278,8 @@ LOAD /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a
                 0x0000000000800044                Tick
                 0x0000000000800045                PanicFlag
                 0x0000000000800046                PROVIDE (__bss_end, .)
-                0x00000000000001da                __data_load_start = LOADADDR (.data)
-                0x00000000000001da                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000000000001d0                __data_load_start = LOADADDR (.data)
+                0x00000000000001d0                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x0000000000800046        0x0
                 0x0000000000800046                PROVIDE (__noinit_start, .)

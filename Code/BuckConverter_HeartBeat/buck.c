@@ -25,9 +25,9 @@
 #define PANIC_COUNT 50							//number of cycles before we should bail out
 #define ADC_DIVIDER 3							//number of cycles PWM value is allowed
 												//to settle before a reading it taken
-#define TICK_DIVIDER 100						//Divide ADC to quarter second intervals
-												//8MHz/128(prescaler)/4(ADC_DIVIDER+1)/3096 ~ 250ms
-#define PATTERN_LENGTH 100						//max number of cycles before pattern is reset
+#define TICK_DIVIDER 60							//Divide ADC time scale to something
+												//that can be seen
+#define PATTERN_LENGTH 25						//max number of cycles before pattern is reset
 
 volatile uint8_t ADC_LOW_VALUE;					//define ADC Lower Limit
 volatile uint8_t ADC_HIGH_VALUE;				//define ADC Upper Limit
@@ -140,9 +140,8 @@ ISR(ADC_vect)
 			}
 			switch (Tick)
 			{
-				case 2:
-				case 4:
-				case 6:
+				case 10:
+				case 15:
 					ADC_LOW_VALUE = LOW;				//normal lower limit
 					ADC_HIGH_VALUE = LOW + HYSTERESIS;  //normal upper limit
 					break;
@@ -189,14 +188,14 @@ ISR(ADC_vect)
 		}
 		else
 		{
-			//life is good do nothing
+			//PWM is perfect, don't fix what isn't broken
 			PanicFlag = 0;						//any reason to panic is gone
 		}
-		ADC_Div = 0;
+		ADC_Div = 0;							//reset ADC_DIV for the next round
 	}
-	else
+	else										//skip reading this time
 	{
-		ADC_Div++;
+		ADC_Div++;								//increment ADC_DIV
 	}
 
 }

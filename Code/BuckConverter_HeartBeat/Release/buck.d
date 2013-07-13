@@ -1,0 +1,1 @@
+buck.d: ../buck.c
