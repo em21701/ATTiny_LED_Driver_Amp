@@ -25,9 +25,9 @@
 #define PANIC_COUNT 50							//number of cycles before we should bail out
 #define ADC_DIVIDER 3							//number of cycles PWM value is allowed
 												//to settle before a reading it taken
-#define TICK_DIVIDER 100							//Divide ADC time scale to something
+#define TICK_DIVIDER 60							//Divide ADC time scale to something
 												//that can be seen
-#define PATTERN_LENGTH 100						//max number of cycles before pattern is reset
+#define PATTERN_LENGTH 25						//max number of cycles before pattern is reset
 
 volatile uint8_t ADC_LOW_VALUE;					//define ADC Lower Limit
 volatile uint8_t ADC_HIGH_VALUE;				//define ADC Upper Limit
@@ -41,7 +41,7 @@ volatile uint8_t ADC_Div=0;						//Secondary ADC Divider
 
 volatile uint8_t PatDiv=0;						//Counter for pattern divider
 volatile uint8_t Tick=0;							//Quarter Second tick counter
-
+volatile uint8_t FirstPass=0;						//flag for first loop pass
 
 
 void setup()
@@ -153,22 +153,46 @@ ISR(ADC_vect)
 				case 2:
 				case 4:
 				case 6:
-					SetLow();
+					if (FirstPass < 1)
+					{
+						SetLow();
+					}
+					else
+					{
+						SetHigh();
+					}
 					break;
+				case 10:
+				case 15:
+					if (FirstPass >= 1)
+					{
+						SetLow();
+					}
+					else
+					{
+						SetHigh();
+					}
+					break;
+
 				case PATTERN_LENGTH:
 					Tick=0;
+					FirstPass = 1;
 					break;
 				default:
 					SetHigh();
 					break;
 			}
+
+
 		}
 		else
 		{
 			SetLow();
 			Tick=0;								//reset tick
 			PatDiv=0;							//reset patdiv
+			FirstPass=0;						//reset first pass
 		}
+
 		if (ADCL > ADC_PANIC_VALUE)
 		{
 			OCR0A -= 5;							//drop PWM a bit

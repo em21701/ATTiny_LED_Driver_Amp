@@ -32,15 +32,16 @@
 volatile uint8_t ADC_LOW_VALUE;					//define ADC Lower Limit
 volatile uint8_t ADC_HIGH_VALUE;				//define ADC Upper Limit
 
-volatile uint8_t PanicFlag;						//define panic flag
+volatile uint8_t PanicFlag=0;					//define panic flag
 
-volatile uint8_t ADC_Div;						//Secondary ADC Divider
+volatile uint8_t ADC_Div=0;						//Secondary ADC Divider
 												//to minimize flicker ADC had to be slower
 												//than 30kHz but to maximize efficiency and
 												//component sizes PWM should be as fast as possible
 
-volatile uint8_t PatDiv;						//Counter for pattern divider
-volatile uint8_t Tick;							//Quarter Second tick counter
+volatile uint8_t PatDiv=0;						//Counter for pattern divider
+volatile uint8_t Tick=0;							//Quarter Second tick counter
+
 
 
 void setup()
@@ -52,11 +53,7 @@ void setup()
 	// CLKPSR = 0011 -> DIV 8 (default)
 	CLKPSR = 0x0000;							//CPU prescaler to 0 = 8MHz
 
-	PanicFlag = 0;								//set panic flag to false
 	sei();										//turn on interrupts
-
-	ADC_LOW_VALUE = LOW;						//Initialize low value
-	ADC_HIGH_VALUE = LOW + HYSTERESIS;			//Initialize High Value
 
 	//PWM SETUP
 /*	CS00 = 1
@@ -118,6 +115,19 @@ void setup()
 
 	ADCSRA |= (1<<ADSC);						//Start Conversion
 
+
+}
+
+void SetLow()
+{
+	ADC_LOW_VALUE = LOW;				//normal lower limit
+	ADC_HIGH_VALUE = LOW + HYSTERESIS;  //normal upper limit
+}
+
+void SetHigh()
+{
+	ADC_LOW_VALUE = BLINK;					//Bright lower limit
+	ADC_HIGH_VALUE = BLINK + HYSTERESIS;  	//Bright upper limit
 }
 
 ISR(ADC_vect)
@@ -142,15 +152,14 @@ ISR(ADC_vect)
 			{
 				case 10:
 				case 15:
-					ADC_LOW_VALUE = LOW;				//normal lower limit
-					ADC_HIGH_VALUE = LOW + HYSTERESIS;  //normal upper limit
+					SetLow();
 					break;
+
 				case PATTERN_LENGTH:
 					Tick=0;
 					break;
 				default:
-					ADC_LOW_VALUE = BLINK;				//bright lower limit
-					ADC_HIGH_VALUE = BLINK + HYSTERESIS;//bright upper limit
+					SetHigh();
 					break;
 			}
 
@@ -158,15 +167,15 @@ ISR(ADC_vect)
 		}
 		else
 		{
-			ADC_LOW_VALUE = LOW;				//normal lower limit
-			ADC_HIGH_VALUE = LOW + HYSTERESIS;  //normal upper limit
+			SetLow();
 			Tick=0;								//reset tick
 			PatDiv=0;							//reset patdiv
+
 		}
 
 		if (ADCL > ADC_PANIC_VALUE)
 		{
-			OCR0A -= 1;							//drop PWM a bit
+			OCR0A -= 5;							//drop PWM a bit
 			PanicFlag++;						//increment panic counter
 		}
 		else if (ADCL < ADC_LOW_VALUE)			//if current is below set point

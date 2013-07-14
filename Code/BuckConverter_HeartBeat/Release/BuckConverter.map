@@ -10,10 +10,6 @@ Common symbol       size              file
 
 ADC_HIGH_VALUE      0x1               ./buck.o
 ADC_LOW_VALUE       0x1               ./buck.o
-PatDiv              0x1               ./buck.o
-ADC_Div             0x1               ./buck.o
-Tick                0x1               ./buck.o
-PanicFlag           0x1               ./buck.o
 
 Memory Configuration
 
@@ -123,7 +119,7 @@ LOAD /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a
 .rela.plt
  *(.rela.plt)
 
-.text           0x0000000000000000      0x1d0
+.text           0x0000000000000000      0x1c2
  *(.vectors)
  .vectors       0x0000000000000000       0x16 /usr/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avrtiny/crttn5.o
                 0x0000000000000000                __vectors
@@ -187,42 +183,44 @@ LOAD /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a
                 0x0000000000000036                __vector_9
                 0x0000000000000036                __vector_2
                 0x0000000000000036                __vector_8
- .text          0x0000000000000038      0x17e ./buck.o
+ .text          0x0000000000000038      0x170 ./buck.o
                 0x0000000000000038                setup
-                0x000000000000008a                __vector_10
- .text          0x00000000000001b6        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
- .text          0x00000000000001b6        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_clear_bss.o)
-                0x00000000000001b6                . = ALIGN (0x2)
+                0x0000000000000074                SetLow
+                0x0000000000000086                SetHigh
+                0x0000000000000098                __vector_10
+ .text          0x00000000000001a8        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
+ .text          0x00000000000001a8        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_clear_bss.o)
+                0x00000000000001a8                . = ALIGN (0x2)
  *(.text.*)
- .text.startup  0x00000000000001b6       0x16 ./buck.o
-                0x00000000000001b6                main
+ .text.startup  0x00000000000001a8       0x16 ./buck.o
+                0x00000000000001a8                main
  .text.libgcc.mul
-                0x00000000000001cc        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
+                0x00000000000001be        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
  .text.libgcc.div
-                0x00000000000001cc        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
+                0x00000000000001be        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
  .text.libgcc.prologue
-                0x00000000000001cc        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
- .text.libgcc   0x00000000000001cc        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
+                0x00000000000001be        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
+ .text.libgcc   0x00000000000001be        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
  .text.libgcc.builtins
-                0x00000000000001cc        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
+                0x00000000000001be        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
  .text.libgcc.fmul
-                0x00000000000001cc        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
+                0x00000000000001be        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
  .text.libgcc.mul
-                0x00000000000001cc        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_clear_bss.o)
+                0x00000000000001be        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_clear_bss.o)
  .text.libgcc.div
-                0x00000000000001cc        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_clear_bss.o)
+                0x00000000000001be        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_clear_bss.o)
  .text.libgcc.prologue
-                0x00000000000001cc        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_clear_bss.o)
- .text.libgcc   0x00000000000001cc        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_clear_bss.o)
+                0x00000000000001be        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00000000000001be        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_clear_bss.o)
  .text.libgcc.builtins
-                0x00000000000001cc        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_clear_bss.o)
+                0x00000000000001be        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_clear_bss.o)
  .text.libgcc.fmul
-                0x00000000000001cc        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_clear_bss.o)
-                0x00000000000001cc                . = ALIGN (0x2)
+                0x00000000000001be        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_clear_bss.o)
+                0x00000000000001be                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000000000001cc        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
-                0x00000000000001cc                exit
-                0x00000000000001cc                _exit
+ .fini9         0x00000000000001be        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
+                0x00000000000001be                exit
+                0x00000000000001be                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -241,11 +239,11 @@ LOAD /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000000000001cc        0x4 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
+ .fini0         0x00000000000001be        0x4 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
  *(.fini0)
-                0x00000000000001d0                _etext = .
+                0x00000000000001c2                _etext = .
 
-.data           0x0000000000800040        0x0 load address 0x00000000000001d0
+.data           0x0000000000800040        0x0 load address 0x00000000000001c2
                 0x0000000000800040                PROVIDE (__data_start, .)
  *(.data)
  .data          0x0000000000800040        0x0 /usr/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avrtiny/crttn5.o
@@ -265,21 +263,21 @@ LOAD /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a
                 0x0000000000800040                PROVIDE (__bss_start, .)
  *(.bss)
  .bss           0x0000000000800040        0x0 /usr/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avrtiny/crttn5.o
- .bss           0x0000000000800040        0x0 ./buck.o
- .bss           0x0000000000800040        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
- .bss           0x0000000000800040        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_clear_bss.o)
+ .bss           0x0000000000800040        0x4 ./buck.o
+                0x0000000000800040                Tick
+                0x0000000000800041                PatDiv
+                0x0000000000800042                ADC_Div
+                0x0000000000800043                PanicFlag
+ .bss           0x0000000000800044        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_exit.o)
+ .bss           0x0000000000800044        0x0 /usr/bin/../lib/gcc/avr/4.7.2/avrtiny/libgcc.a(_clear_bss.o)
  *(.bss*)
  *(COMMON)
- COMMON         0x0000000000800040        0x6 ./buck.o
-                0x0000000000800040                ADC_HIGH_VALUE
-                0x0000000000800041                ADC_LOW_VALUE
-                0x0000000000800042                PatDiv
-                0x0000000000800043                ADC_Div
-                0x0000000000800044                Tick
-                0x0000000000800045                PanicFlag
+ COMMON         0x0000000000800044        0x2 ./buck.o
+                0x0000000000800044                ADC_HIGH_VALUE
+                0x0000000000800045                ADC_LOW_VALUE
                 0x0000000000800046                PROVIDE (__bss_end, .)
-                0x00000000000001d0                __data_load_start = LOADADDR (.data)
-                0x00000000000001d0                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000000000001c2                __data_load_start = LOADADDR (.data)
+                0x00000000000001c2                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x0000000000800046        0x0
                 0x0000000000800046                PROVIDE (__noinit_start, .)
