@@ -150,9 +150,10 @@ ISR(ADC_vect)
 			}
 			switch (Tick)
 			{
-				case 2:
+				case 3:
 				case 4:
-				case 6:
+				case 7:
+				case 8:
 					if (FirstPass < 1)
 					{
 						SetLow();
@@ -162,8 +163,8 @@ ISR(ADC_vect)
 						SetHigh();
 					}
 					break;
-				case 10:
 				case 15:
+				case 20:
 					if (FirstPass >= 1)
 					{
 						SetLow();

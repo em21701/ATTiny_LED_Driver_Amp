@@ -153,19 +153,19 @@ Disassembly of section .text:
   e2:	e1 e4       	ldi	r30, 0x41	; 65
   e4:	f0 e0       	ldi	r31, 0x00	; 0
   e6:	40 81       	ld	r20, Z
-  e8:	46 30       	cpi	r20, 0x06	; 6
-  ea:	69 f0       	breq	.+26     	; 0x106 <__vector_10+0x6e>
-  ec:	28 f4       	brcc	.+10     	; 0xf8 <__vector_10+0x60>
-  ee:	42 30       	cpi	r20, 0x02	; 2
-  f0:	51 f0       	breq	.+20     	; 0x106 <__vector_10+0x6e>
-  f2:	44 30       	cpi	r20, 0x04	; 4
-  f4:	d9 f4       	brne	.+54     	; 0x12c <__vector_10+0x94>
+  e8:	49 30       	cpi	r20, 0x09	; 9
+  ea:	30 f4       	brcc	.+12     	; 0xf8 <__vector_10+0x60>
+  ec:	47 30       	cpi	r20, 0x07	; 7
+  ee:	58 f4       	brcc	.+22     	; 0x106 <__vector_10+0x6e>
+  f0:	43 50       	subi	r20, 0x03	; 3
+  f2:	42 30       	cpi	r20, 0x02	; 2
+  f4:	d8 f4       	brcc	.+54     	; 0x12c <__vector_10+0x94>
   f6:	07 c0       	rjmp	.+14     	; 0x106 <__vector_10+0x6e>
-  f8:	4f 30       	cpi	r20, 0x0F	; 15
+  f8:	44 31       	cpi	r20, 0x14	; 20
   fa:	61 f0       	breq	.+24     	; 0x114 <__vector_10+0x7c>
   fc:	49 31       	cpi	r20, 0x19	; 25
   fe:	81 f0       	breq	.+32     	; 0x120 <__vector_10+0x88>
- 100:	4a 30       	cpi	r20, 0x0A	; 10
+ 100:	4f 30       	cpi	r20, 0x0F	; 15
  102:	a1 f4       	brne	.+40     	; 0x12c <__vector_10+0x94>
  104:	07 c0       	rjmp	.+14     	; 0x114 <__vector_10+0x7c>
  106:	e0 e4       	ldi	r30, 0x40	; 64
