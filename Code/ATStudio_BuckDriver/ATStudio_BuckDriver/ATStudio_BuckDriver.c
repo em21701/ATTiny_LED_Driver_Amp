@@ -21,35 +21,29 @@
 #define ADC_PANIC_VALUE 225						//bail out something went horribly wrong
 #define LOW 30									//ADC Low value
 #define HYSTERESIS 10							//Hysterysis range
-#define BLINK 75								//Bright value
+#define BLINK 125								//Bright value
 #define PANIC_COUNT 50							//number of cycles before we should bail out
-#define ADC_DIVIDER 3							//number of cycles PWM value is allowed 
+#define ADC_DIVIDER 3							//number of cycles PWM value is allowed
 												//to settle before a reading it taken
-
 volatile uint8_t ADC_LOW_VALUE;					//define ADC Lower Limit
 volatile uint8_t ADC_HIGH_VALUE;				//define ADC Upper Limit
 
-volatile uint8_t PanicFlag;						//define panic flag
+volatile uint8_t PanicFlag=0;					//define panic flag
 
-volatile uint8_t ADC_Div;						//Secondary ADC Divider
-												//to minimize flicker ADC had to be slower 
-												//than 30kHz but to maximize efficiency and 
+volatile uint8_t ADC_Div=0;						//Secondary ADC Divider
+												//to minimize flicker ADC had to be slower
+												//than 30kHz but to maximize efficiency and
 												//component sizes PWM should be as fast as possible
-
 void setup()
 {
 	CCP = 0xD8;									//enable protected register change
 	// CLKPSR = 0000 -> 0
 	// CLKPSR = 0001 -> DIV 2
 	// CLKPSR = 0010 -> DIV 4
-	// CLKPSR = 0011 -> DIV 8 (default)	
+	// CLKPSR = 0011 -> DIV 8 (default)
 	CLKPSR = 0x0000;							//CPU prescaler to 0 = 8MHz
 
-	PanicFlag = 0;								//set panic flag to false
 	sei();										//turn on interrupts
-
-	ADC_LOW_VALUE = LOW;						//Initialize low value
-	ADC_HIGH_VALUE = LOW + HYSTERESIS;			//Initialize High Value
 
 	//PWM SETUP
 /*	CS00 = 1
@@ -96,7 +90,7 @@ void setup()
 	DIDR0 |= (1<<ADC2D);						//Disable digital input
 /*
 	ADEN = 1									//enable ADC
-														 
+
 	//8MHZ CPU div 128 (MAX) = 62.5kHz
 	//ADPS = 111 -> 128
 	//ADPS = 110 -> 64
@@ -111,6 +105,19 @@ void setup()
 
 	ADCSRA |= (1<<ADSC);						//Start Conversion
 
+
+}
+
+void SetLow()
+{
+	ADC_LOW_VALUE = LOW;				//normal lower limit
+	ADC_HIGH_VALUE = LOW + HYSTERESIS;  //normal upper limit
+}
+
+void SetHigh()
+{
+	ADC_LOW_VALUE = BLINK;					//Bright lower limit
+	ADC_HIGH_VALUE = BLINK + HYSTERESIS;  	//Bright upper limit
 }
 
 ISR(ADC_vect)
@@ -120,23 +127,20 @@ ISR(ADC_vect)
 	//read value of ADCL compare to low, high and panic values
 	//and set new PWM value.
 
+	if (ADC_Div > ADC_DIVIDER)					//The circuit needs time to settle
+	{											//Skip ADC_DIVIDER cycles before acting
 
-	if (PINB & (1<<PINB1))					//if the blink input is high
-	{
-		ADC_LOW_VALUE = BLINK;				//bright lower limit
-		ADC_HIGH_VALUE = BLINK + HYSTERESIS;//bright upper limit
-
-	}
-	else
-	{
-		ADC_LOW_VALUE = LOW;				//normal lower limit
-		ADC_HIGH_VALUE = LOW + HYSTERESIS;  //normal upper limit
-	}
-	if (ADC_Div > ADC_DIVIDER)
-	{
+		if (PINB & (1<<PINB1))					//if the blink input is high
+		{
+			SetHigh();
+		}
+		else
+		{
+			SetLow();
+		}
 		if (ADCL > ADC_PANIC_VALUE)
 		{
-			OCR0A -= 1;							//drop PWM a bit
+			OCR0A -= 5;							//drop PWM a bit
 			PanicFlag++;						//increment panic counter
 		}
 		else if (ADCL < ADC_LOW_VALUE)			//if current is below set point
@@ -158,14 +162,14 @@ ISR(ADC_vect)
 		}
 		else
 		{
-			//life is good do nothing
+			//PWM is perfect, don't fix what isn't broken
 			PanicFlag = 0;						//any reason to panic is gone
 		}
-		ADC_Div = 0;
+		ADC_Div = 0;							//reset ADC_DIV for the next round
 	}
-	else
+	else										//skip reading this time
 	{
-		ADC_Div++;
+		ADC_Div++;								//increment ADC_DIV
 	}
 
 }

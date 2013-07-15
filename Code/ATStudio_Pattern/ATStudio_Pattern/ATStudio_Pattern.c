@@ -12,40 +12,48 @@
  */
 
 #define __AVR_ATtiny5__		//chip definition
-#define F_CPU 1000000UL		//cpu frequency 1MHz
+#define F_CPU 8000000UL		//cpu frequency 8MHz
 
 #include <avr/io.h>			//AVR chip specific defs
 #include <avr/interrupt.h>  //interrupt service routines
 #include <stdlib.h>			//standard c functions
 
-#define ADC_PANIC_VALUE 200						//bail out something went horribly wrong
+#define ADC_PANIC_VALUE 225						//bail out something went horribly wrong
 #define LOW 30									//ADC Low value
-#define HYSTERESIS 10							//Hysteresis range
-#define BLINK 100								//Bright value
-
-#define TIMING_DIV 30							//Timing divider 30
+#define HYSTERESIS 10							//Hysterysis range
+#define BLINK 125								//Bright value
+#define PANIC_COUNT 50							//number of cycles before we should bail out
+#define ADC_DIVIDER 3							//number of cycles PWM value is allowed
+												//to settle before a reading it taken
+#define TICK_DIVIDER 100							//Divide ADC time scale to something
+												//that can be seen
+#define PATTERN_LENGTH 100						//max number of cycles before pattern is reset
 
 volatile uint8_t ADC_LOW_VALUE;					//define ADC Lower Limit
 volatile uint8_t ADC_HIGH_VALUE;				//define ADC Upper Limit
 
-volatile uint8_t LoopCounterLow;				//loop counter for patterns low bit
-volatile uint8_t LoopCounterHigh;				//loop counter for patterns high bit
+volatile uint8_t PanicFlag=0;					//define panic flag
 
-//volatile uint16_t LoopCounter;					//16 bit loop counter
+volatile uint8_t ADC_Div=0;						//Secondary ADC Divider
+												//to minimize flicker ADC had to be slower
+												//than 30kHz but to maximize efficiency and
+												//component sizes PWM should be as fast as possible
 
-volatile uint8_t TimingCounter;					//Time counter
-												//approx 250ms = 31.25kHz/255/30
+volatile uint8_t PatDiv=0;						//Counter for pattern divider
+volatile uint8_t Tick=0;							//Quarter Second tick counter
 
-volatile uint8_t PanicFlag;						//define panic flag
+
 
 void setup()
 {
+	CCP = 0xD8;									//enable protected register change
+	// CLKPSR = 0000 -> 0
+	// CLKPSR = 0001 -> DIV 2
+	// CLKPSR = 0010 -> DIV 4
+	// CLKPSR = 0011 -> DIV 8 (default)
+	CLKPSR = 0x0000;							//CPU prescaler to 0 = 8MHz
 
-	PanicFlag = 0;								//set panic flag to false
 	sei();										//turn on interrupts
-
-	ADC_LOW_VALUE = LOW;						//Initialize low value
-	ADC_HIGH_VALUE = LOW + HYSTERESIS;			//Initialize High Value
 
 	//PWM SETUP
 /*	CS00 = 1
@@ -93,20 +101,33 @@ void setup()
 /*
 	ADEN = 1									//enable ADC
 
-	ADPS1 = 0									//Set prescaler to div 32
-	ADPS0 & ADPS2 = 1							//31.25kHz @ 1MHz CPU
-			 									//trial and error has shown the
-			 	 	 	 	 	 	 	 	 	//least amount of flicker here
+	//8MHZ CPU div 128 (MAX) = 62.5kHz
+	//ADPS = 111 -> 128
+	//ADPS = 110 -> 64
+	//ADPS = 101 -> 32
 
 	ADIE = 1									//Enable ADC Interrupt
 	ADATE = 1									//Auto Trigger
 
 	ADCSRA - ADEN | ADSC | ADATE | ADIF | ADIE | ADPS2 | ADPS1 | ADPS0
 */
-	ADCSRA = 0b10101101;
+	ADCSRA = 0b10101111;
 
 	ADCSRA |= (1<<ADSC);						//Start Conversion
 
+
+}
+
+void SetLow()
+{
+	ADC_LOW_VALUE = LOW;				//normal lower limit
+	ADC_HIGH_VALUE = LOW + HYSTERESIS;  //normal upper limit
+}
+
+void SetHigh()
+{
+	ADC_LOW_VALUE = BLINK;					//Bright lower limit
+	ADC_HIGH_VALUE = BLINK + HYSTERESIS;  	//Bright upper limit
 }
 
 ISR(ADC_vect)
@@ -116,80 +137,71 @@ ISR(ADC_vect)
 	//read value of ADCL compare to low, high and panic values
 	//and set new PWM value.
 
+	if (ADC_Div > ADC_DIVIDER)					//The circuit needs time to settle
+	{											//Skip ADC_DIVIDER cycles before acting
 
-	if (PINB & (1<<PINB1))					//if the blink input is high
-	{
-		LoopCounterLow++;						//Increment Low byte counter
-		if (LoopCounterLow > 255)
+		if (PINB & (1<<PINB1))					//if the blink input is high
 		{
-			LoopCounterHigh++;					//Increment High byte counter
-			LoopCounterLow = 0;					//reset low byte
+			PatDiv++;							//Increment Pattern divider
+			if (PatDiv > TICK_DIVIDER)
+			{
+				Tick++;
+				PatDiv=0;
+			}
+			switch (Tick)
+			{
+				case 2:
+				case 4:
+				case 6:
+					SetLow();
+					break;
+				case PATTERN_LENGTH:
+					Tick=0;
+					break;
+				default:
+					SetHigh();
+					break;
+			}
 		}
-		if (LoopCounterHigh > TIMING_DIV)
+		else
 		{
-			TimingCounter++;					//Increment timing counter
-			LoopCounterHigh = 0;				//reset High byte
-			LoopCounterLow = 0;					//low byte should be 0 but reset anyway
+			SetLow();
+			Tick=0;								//reset tick
+			PatDiv=0;							//reset patdiv
 		}
-		//if (LoopCounter > TIMING_DIV)
-		//{
-			//TimingCounter++;
-		//}
-//
-		switch (TimingCounter)
+		if (ADCL > ADC_PANIC_VALUE)
 		{
-			case 2:
-			case 4:
-			case 6:
-				ADC_LOW_VALUE = LOW;
-				ADC_HIGH_VALUE = LOW + HYSTERESIS;
-				break;
-
-			case 255:
-				TimingCounter = 0;
-				break;
-			default:
-				ADC_LOW_VALUE = BLINK;				//bright lower limit
-				ADC_HIGH_VALUE = BLINK + HYSTERESIS;//bright upper limit
-		 }
-	}
-	else									//blink input low
-	{
-		ADC_LOW_VALUE = LOW;				//normal lower limit
-		ADC_HIGH_VALUE = LOW + HYSTERESIS;  //normal upper limit
-		TimingCounter=0;
-		LoopCounterLow = 0;
-		LoopCounterHigh = 0;
-	}
-
-	if (ADCL > ADC_PANIC_VALUE)
-	{
-		OCR0A = 0;							//set PWM to 0
-		PanicFlag++;						//force the chip to end processing
-	}
-	else if (ADCL < ADC_LOW_VALUE)			//if current is below set point
-	{
-		if ((ADC_LOW_VALUE - ADCL) > 30) 	//if it is way below
-		{
-			OCR0A += 5;						//ramp up to the value quickly
+			OCR0A -= 5;							//drop PWM a bit
+			PanicFlag++;						//increment panic counter
 		}
-		else								//otherwise
+		else if (ADCL < ADC_LOW_VALUE)			//if current is below set point
 		{
-			OCR0A += 1;						//lets go slowly to avoid overshoot
+			if ((ADC_LOW_VALUE - ADCL) > 30) 	//if it is way below
+			{
+				OCR0A += 10;					//ramp up to the value quickly
+			}
+			else								//otherwise
+			{
+				OCR0A += 1;						//lets go slowly to avoid overshoot
+			}
+			PanicFlag = 0;						//no need to panic
 		}
+		else if (ADCL > ADC_HIGH_VALUE)			//if current is above set point
+		{
+			OCR0A -= 1;							//lets go down slowly
+												//rapid drops lead to flicker
+		}
+		else
+		{
+			//PWM is perfect, don't fix what isn't broken
+			PanicFlag = 0;						//any reason to panic is gone
+		}
+		ADC_Div = 0;							//reset ADC_DIV for the next round
 	}
-	else if (ADCL > ADC_HIGH_VALUE)			//if current is above set point
+	else										//skip reading this time
 	{
-		OCR0A -= 2;							//lets go down slowly
-											//rapid drops lead to flicker so
-											//down slowly is the best plan
-
+		ADC_Div++;								//increment ADC_DIV
 	}
-	else
-	{
-		//life is good do nothing
-	}
-
 
 }
 
@@ -197,11 +209,11 @@ int main ()
 {
 	setup();									//Setup chip;
 
-	while(PanicFlag < 1)						//if PanicFlag is greater than 0
+	while(PanicFlag < PANIC_COUNT)				//if PanicFlag is greater than PANIC_COUNT
 	{											//fail out and stop processor.
 
 	}
-
+	OCR0A = 0;									//turn off pwm before bailing out
 	return 0;
 }
 
