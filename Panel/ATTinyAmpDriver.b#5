@@ -53,7 +53,6 @@
 <layer number="96" name="Values" color="7" fill="1" visible="no" active="no"/>
 <layer number="97" name="Info" color="7" fill="1" visible="no" active="no"/>
 <layer number="98" name="Guide" color="6" fill="1" visible="no" active="no"/>
-<layer number="125" name="_tNames" color="14" fill="1" visible="yes" active="yes"/>
 <layer number="250" name="Descript" color="3" fill="1" visible="no" active="no"/>
 <layer number="251" name="SMDround" color="12" fill="11" visible="no" active="no"/>
 </layers>
@@ -63,39 +62,20 @@
 <wire x1="30" y1="0" x2="30" y2="15" width="0.0254" layer="20"/>
 <wire x1="30" y1="15" x2="0" y2="15" width="0.0254" layer="20"/>
 <wire x1="0" y1="15" x2="0" y2="0" width="0.0254" layer="20"/>
-<text x="27.9908" y="4.2672" size="0.8128" layer="125">D+</text>
-<text x="28.2702" y="11.1506" size="0.8128" layer="125">D-</text>
+<text x="27.9908" y="4.2672" size="0.8128" layer="25">D+</text>
+<text x="28.2702" y="11.1506" size="0.8128" layer="25">D-</text>
 <hole x="1.905" y="13.081" drill="2.2606"/>
 <hole x="28.0924" y="1.905" drill="2.2606"/>
 <text x="23.1648" y="13.0556" size="0.508" layer="16" font="vector" ratio="20" rot="MR0">EWM 20130630
 AT DRIVER 3</text>
-<text x="13.2334" y="1.9558" size="0.8128" layer="125">D</text>
+<text x="13.2334" y="1.9558" size="0.8128" layer="25">D</text>
 <text x="9.5504" y="12.9032" size="0.8128" layer="25">C</text>
-<text x="3.7338" y="13.4874" size="0.8128" layer="125">G</text>
-<text x="13.8938" y="4.826" size="0.8128" layer="125">R</text>
-<text x="8.2804" y="6.9342" size="0.8128" layer="125">V</text>
-<text x="9.0424" y="6.9342" size="0.8128" layer="125">M</text>
-<text x="6.9088" y="1.8542" size="0.8128" layer="125" rot="R180">C1</text>
-<text x="10.2108" y="14.4018" size="0.8128" layer="125" rot="R180">C2</text>
-<text x="8.89" y="0.7874" size="0.8128" layer="125">C3</text>
-<text x="18.288" y="12.192" size="0.8128" layer="125" rot="R180">C4</text>
-<text x="15.875" y="3.9624" size="0.8128" layer="125">C5</text>
-<text x="11.43" y="0.9652" size="0.8128" layer="125">C6</text>
-<text x="7.0358" y="12.9286" size="0.8128" layer="125" rot="R180">D1</text>
-<text x="25.4" y="0.6604" size="0.8128" layer="125">Q1</text>
-<text x="21.5646" y="4.699" size="0.8128" layer="125">Q2</text>
-<text x="16.129" y="2.159" size="0.8128" layer="125" rot="R180">R1</text>
-<text x="19.304" y="0.7874" size="0.8128" layer="125">R2</text>
-<text x="22.9108" y="13.6398" size="0.8128" layer="125" rot="R180">R3</text>
-<text x="11.5316" y="10.5156" size="0.8128" layer="125">R4</text>
-<text x="25.146" y="11.4554" size="0.8128" layer="125" rot="R180">R5</text>
-<text x="7.9756" y="12.0904" size="0.8128" layer="125">R6</text>
-<text x="10.2108" y="9.5504" size="0.8128" layer="125">R7</text>
-<text x="24.3586" y="5.3594" size="0.8128" layer="125">R8</text>
-<text x="21.5646" y="5.6896" size="0.8128" layer="125">R9</text>
-<text x="5.969" y="5.6642" size="0.8128" layer="125" ratio="10" rot="SR0">U1</text>
-<text x="11.8872" y="7.366" size="0.8128" layer="125" ratio="10" rot="SR0">U2</text>
-<text x="17.2212" y="9.6774" size="0.8128" layer="125" ratio="6" rot="SR0">U3</text>
+<text x="3.7338" y="13.4874" size="0.8128" layer="25">G</text>
+<text x="13.8938" y="4.826" size="0.8128" layer="25">R</text>
+<text x="8.2804" y="6.9342" size="0.8128" layer="25">V</text>
+<dimension x1="0" y1="15" x2="0" y2="0" x3="-1.9812" y3="7.5" textsize="1.778" layer="20" unit="inch" precision="3"/>
+<dimension x1="0" y1="0" x2="30" y2="0" x3="15" y3="-3.5052" textsize="1.778" layer="20" unit="inch" precision="3"/>
+<text x="9.0424" y="6.9342" size="0.8128" layer="25">M</text>
 </plain>
 <libraries>
 <library name="Exar_By_element14_Batch_1">
