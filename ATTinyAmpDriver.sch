@@ -53,6 +53,7 @@
 <layer number="96" name="Values" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="97" name="Info" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="98" name="Guide" color="6" fill="1" visible="yes" active="yes"/>
+<layer number="100" name="TestPads" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="250" name="Descript" color="3" fill="1" visible="no" active="no"/>
 <layer number="251" name="SMDround" color="12" fill="11" visible="no" active="no"/>
 </layers>
@@ -5711,37 +5712,6 @@ type 0309, grid 2.5 mm</description>
 </deviceset>
 </devicesets>
 </library>
-<library name="Personal">
-<packages>
-<package name="TPI_PAD">
-<smd name="P$1" x="0" y="0" dx="0.635" dy="0.635" layer="1" roundness="100"/>
-</package>
-</packages>
-<symbols>
-<symbol name="TPI_PIN">
-<circle x="0" y="0" radius="1.27" width="0.127" layer="94"/>
-<pin name="TPI_PIN" x="2.54" y="0" visible="off" length="short" rot="R180"/>
-<text x="1.27" y="1.27" size="1.27" layer="94">&gt;NAME</text>
-</symbol>
-</symbols>
-<devicesets>
-<deviceset name="TPI">
-<gates>
-<gate name="G$1" symbol="TPI_PIN" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="TPI_PAD">
-<connects>
-<connect gate="G$1" pin="TPI_PIN" pad="P$1"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-</devicesets>
-</library>
 <library name="Combined">
 <packages>
 <package name="SOT-23_POWER">
@@ -5838,6 +5808,10 @@ type 0309, grid 2.5 mm</description>
 <wire x1="0.254" y1="1.016" x2="0.762" y2="1.016" width="0.127" layer="51"/>
 <wire x1="0.254" y1="1.27" x2="0.254" y2="0.762" width="0.127" layer="51"/>
 </package>
+<package name="TPI_PAD">
+<smd name="P$1" x="0" y="0" dx="0.635" dy="0.635" layer="1" roundness="100" cream="no"/>
+<circle x="0" y="0" radius="0.3175" width="0.127" layer="100"/>
+</package>
 </packages>
 <symbols>
 <symbol name="IGFET-EP-GDS">
@@ -5884,6 +5858,11 @@ type 0309, grid 2.5 mm</description>
 <text x="2.54" y="-2.3114" size="1.778" layer="96">&gt;VALUE</text>
 <pin name="A" x="-2.54" y="0" visible="off" length="short" direction="pas"/>
 <pin name="C" x="2.54" y="0" visible="off" length="short" direction="pas" rot="R180"/>
+</symbol>
+<symbol name="TPI_PIN">
+<circle x="0" y="0" radius="1.27" width="0.127" layer="94"/>
+<pin name="TPI_PIN" x="2.54" y="0" visible="off" length="short" rot="R180"/>
+<text x="1.27" y="1.27" size="1.27" layer="94">&gt;NAME</text>
 </symbol>
 </symbols>
 <devicesets>
@@ -5935,6 +5914,21 @@ type 0309, grid 2.5 mm</description>
 <connects>
 <connect gate="G$1" pin="A" pad="1A"/>
 <connect gate="G$1" pin="C" pad="2C"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="TPI">
+<gates>
+<gate name="G$1" symbol="TPI_PIN" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="TPI_PAD">
+<connects>
+<connect gate="G$1" pin="TPI_PIN" pad="P$1"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -6062,10 +6056,10 @@ type 0309, grid 2.5 mm</description>
 <attribute name="DIGIKEY" value="RMCF0603FT1K00CT-ND"/>
 <attribute name="DIGIKEY_COST" value=".04"/>
 </part>
-<part name="TPIDATA" library="Personal" deviceset="TPI" device=""/>
-<part name="TPICLK" library="Personal" deviceset="TPI" device=""/>
-<part name="+5V" library="Personal" deviceset="TPI" device=""/>
-<part name="GND" library="Personal" deviceset="TPI" device=""/>
+<part name="TPIDATA" library="Combined" deviceset="TPI" device=""/>
+<part name="TPICLK" library="Combined" deviceset="TPI" device=""/>
+<part name="+5V" library="Combined" deviceset="TPI" device=""/>
+<part name="GND" library="Combined" deviceset="TPI" device=""/>
 <part name="SUPPLY15" library="supply2" deviceset="VCC" device=""/>
 <part name="SUPPLY16" library="supply2" deviceset="GND" device=""/>
 <part name="C1" library="resistor" deviceset="C-US" device="C0603" value="10n">
@@ -6073,7 +6067,7 @@ type 0309, grid 2.5 mm</description>
 <attribute name="DIGIKEY_COST" value=".10"/>
 </part>
 <part name="SUPPLY17" library="supply2" deviceset="GND" device=""/>
-<part name="RESET" library="Personal" deviceset="TPI" device=""/>
+<part name="RESET" library="Combined" deviceset="TPI" device=""/>
 <part name="SUPPLY19" library="supply2" deviceset="GND" device=""/>
 <part name="SUPPLY21" library="supply2" deviceset="VCC" device=""/>
 <part name="R9" library="resistor" deviceset="R-US_" device="R0603" value="28.7K">
@@ -6131,9 +6125,9 @@ type 0309, grid 2.5 mm</description>
 <attribute name="DIGIKEY" value="RMCF0603FT1K00CT-ND"/>
 <attribute name="DIGIKEY_COST" value=".04"/>
 </part>
-<part name="PWM" library="Personal" deviceset="TPI" device=""/>
-<part name="MEASURE" library="Personal" deviceset="TPI" device=""/>
-<part name="OUTA" library="Personal" deviceset="TPI" device=""/>
+<part name="PWM" library="Combined" deviceset="TPI" device=""/>
+<part name="MEASURE" library="Combined" deviceset="TPI" device=""/>
+<part name="OUTA" library="Combined" deviceset="TPI" device=""/>
 </parts>
 <sheets>
 <sheet>

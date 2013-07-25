@@ -6087,7 +6087,7 @@ type 0309, grid 2.5 mm</description>
 <attribute name="DIGIKEY" value="RMCF0603FT10K0CT-ND"/>
 <attribute name="DIGIKEY_COST" value=".04"/>
 </part>
-<part name="R3" library="resistor" deviceset="R-US_" device="R0603" value="10k">
+<part name="R3" library="resistor" deviceset="R-US_" device="R0603" value="110">
 <attribute name="DIGIKEY" value="RMCF0603FT10K0CT-ND"/>
 <attribute name="DIGIKEY_COST" value=".04"/>
 </part>
@@ -6110,7 +6110,7 @@ type 0309, grid 2.5 mm</description>
 <attribute name="DIGIKEY" value="MCP6L2T-E/SNCT-ND"/>
 <attribute name="DIGIKEY_COST" value=".64"/>
 </part>
-<part name="R4" library="resistor" deviceset="R-US_" device="R0603" value="10k">
+<part name="R4" library="resistor" deviceset="R-US_" device="R0603" value="110">
 <attribute name="DIGIKEY" value="RMCF0603FT10K0CT-ND"/>
 <attribute name="DIGIKEY_COST" value=".04"/>
 </part>
@@ -6158,6 +6158,8 @@ the programming of the micro.</text>
 <wire x1="279.4" y1="215.9" x2="279.4" y2="0" width="0.1524" layer="98"/>
 <wire x1="279.4" y1="0" x2="0" y2="0" width="0.1524" layer="98"/>
 <text x="149.86" y="111.76" size="1.778" layer="91">Sallen Key PWM Input Filter</text>
+<text x="149.86" y="104.14" size="1.778" layer="91">Q = .5 (ideal)
+f = 15kHz</text>
 </plain>
 <instances>
 <instance part="U1" gate="A" x="88.9" y="180.34">
