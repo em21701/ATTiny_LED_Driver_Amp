@@ -20,12 +20,12 @@
 
 #define ADC_PANIC_VALUE 225						//bail out something went horribly wrong
 #define LOW 30									//ADC Low value
-#define HYSTERESIS 10							//Hysterysis range
+#define HYSTERESIS 10							//Hysteresis range
 #define BLINK 125								//Bright value
 #define PANIC_COUNT 50							//number of cycles before we should bail out
 #define ADC_DIVIDER 3							//number of cycles PWM value is allowed
 												//to settle before a reading it taken
-#define TICK_DIVIDER 100							//Divide ADC time scale to something
+#define TICK_DIVIDER 100						//Divide ADC time scale to something
 												//that can be seen
 #define PATTERN_LENGTH 100						//max number of cycles before pattern is reset
 
@@ -40,8 +40,10 @@ volatile uint8_t ADC_Div=0;						//Secondary ADC Divider
 												//component sizes PWM should be as fast as possible
 
 volatile uint8_t PatDiv=0;						//Counter for pattern divider
-volatile uint8_t Tick=0;							//Quarter Second tick counter
+volatile uint8_t Tick=0;						//Quarter Second tick counter
 
+volatile uint8_t lowVal=0;						//actual output value for low light
+volatile uint8_t highVal=0;						//actual ouput value for high light
 
 
 void setup()
@@ -85,7 +87,7 @@ void setup()
 	PUEB = 0b0001;								//enable internal pullup
 	PORTB = 0;									//set pins to high impedance
 
-	OCR0B = 0;									//not used, set to 0
+	//OCR0B = 0;									//not used, set to 0
 
 	//ADC SETUP
 	PRR &= ~(1<<PRADC);							//turn off adc power reduction
@@ -122,12 +124,16 @@ void SetLow()
 {
 	ADC_LOW_VALUE = LOW;				//normal lower limit
 	ADC_HIGH_VALUE = LOW + HYSTERESIS;  //normal upper limit
+	highVal = OCR0A;
+	OCR0A = lowVal;
 }
 
 void SetHigh()
 {
 	ADC_LOW_VALUE = BLINK;					//Bright lower limit
 	ADC_HIGH_VALUE = BLINK + HYSTERESIS;  	//Bright upper limit
+	lowVal = OCR0A;
+	OCR0A = highVal;
 }
 
 ISR(ADC_vect)
@@ -143,47 +149,47 @@ ISR(ADC_vect)
 		if (PINB & (1<<PINB1))					//if the blink input is high
 		{
 			PatDiv++;							//Increment Pattern divider
-			if (PatDiv > TICK_DIVIDER)
+			if (PatDiv > TICK_DIVIDER)			//if pattern divider is greater tick divider
 			{
-				Tick++;
-				PatDiv=0;
+				Tick++;							//increment tick
+				PatDiv=0;						//reset pattern counter
 			}
-			switch (Tick)
+			switch (Tick)						
 			{
 				case 2:
 				case 4:
 				case 6:
-					SetLow();
+					SetLow();					//this is a quick 3 flasses at the start of each cycle
 					break;
-				case PATTERN_LENGTH:
-					Tick=0;
+				case PATTERN_LENGTH:			//if we are at the pattern length
+					Tick=0;						//reset tick to 0
 					break;
-				default:
-					SetHigh();
+				default:						//otherwise
+					SetHigh();					//show a bright light
 					break;
 			}
 		}
-		else
+		else									//blink input is low
 		{
 			SetLow();
 			Tick=0;								//reset tick
 			PatDiv=0;							//reset patdiv
 		}
-		if (ADCL > ADC_PANIC_VALUE)
+		if (ADCL > ADC_PANIC_VALUE)				//if we are way out of range
 		{
 			OCR0A -= 5;							//drop PWM a bit
 			PanicFlag++;						//increment panic counter
 		}
 		else if (ADCL < ADC_LOW_VALUE)			//if current is below set point
 		{
-			if ((ADC_LOW_VALUE - ADCL) > 30) 	//if it is way below
-			{
-				OCR0A += 10;					//ramp up to the value quickly
-			}
-			else								//otherwise
-			{
+			//if ((ADC_LOW_VALUE - ADCL) > 30) 	//if it is way below
+			//{
+				//OCR0A += 10;					//ramp up to the value quickly
+			//}
+			//else								//otherwise
+			//{
 				OCR0A += 1;						//lets go slowly to avoid overshoot
-			}
+			//}
 			PanicFlag = 0;						//no need to panic
 		}
 		else if (ADCL > ADC_HIGH_VALUE)			//if current is above set point
@@ -198,7 +204,7 @@ ISR(ADC_vect)
 		}
 		ADC_Div = 0;							//reset ADC_DIV for the next round
 	}
-	else										//skip reading this time
+	else										//skip reading this time this is a settle period
 	{
 		ADC_Div++;								//increment ADC_DIV
 	}
